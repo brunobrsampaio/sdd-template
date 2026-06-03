@@ -1,0 +1,154 @@
+# CLAUDE.md
+
+> Arquivo lido pelo Claude Code no início de cada sessão.
+> Serve como orientador: onde as coisas ficam, como trabalhar, o que nunca violar.
+> Customize as seções marcadas com [PROJETO] antes de iniciar.
+> Remover esse bloco ao iniciar um novo projeto. O arquivo deve começar a partir da seção `Identidade do Projeto`
+
+---
+
+## Identidade do Projeto
+
+- **Nome:** [PROJETO - ex: strava-dashboard]
+- **Descrição curta:** [PROJETO - ex: Dashboard web para visualização de atividades do Strava]
+- **Stack principal:** [PROJETO - ex: React 18 + TypeScript + Tailwind]
+
+---
+
+## Estrutura de Artefatos SDD
+
+Os artefatos do projeto seguem esta hierarquia. Leia-os nesta ordem antes de qualquer implementação:
+
+```
+.specify/
+  memory/
+    constitution.md        ← Princípios não-negociáveis do projeto
+  specs/
+    <feature-name>/
+      spec.md              ← O quê será construído e por quê
+      plan.md              ← Como será construído (arquitetura + decisões)
+      tasks.md             ← Tarefas atômicas e ordenadas
+      agent.md             ← Contexto acumulado durante a implementação
+```
+
+> Specs podem ser geradas via SpecKit (`/speckit.specify`) ou escritas manualmente.
+> A estrutura é a mesma nos dois casos.
+
+### Guias de Arquitetura Ativos [PROJETO]
+
+Marque com `[x]` apenas os guias que se aplicam a este projeto:
+
+- [ ] `.specify/memory/architecture/frontend.md`
+- [ ] `.specify/memory/architecture/backend.md`
+- [ ] `.specify/memory/architecture/database.md`
+- [ ] `.specify/memory/architecture/devops.md`
+
+> Leia os guias ativos antes de qualquer implementação — eles complementam a constitution.
+
+---
+
+## Fluxo de Trabalho Obrigatório
+
+Siga esta sequência. Nunca pule etapas.
+
+```
+1. Ler constitution.md
+2. Criar ou receber spec.md aprovada
+3. Gerar plan.md baseado na spec
+4. Quebrar plan em tasks.md atômicas
+5. Implementar task por task
+6. Validar contra spec antes de fechar
+```
+
+Se estiver usando SpecKit:
+```
+/speckit.constitution → /speckit.specify → /speckit.plan → /speckit.tasks → /speckit.implement
+```
+
+Use `/speckit.clarify` antes de avançar para o próximo passo quando:
+- O pedido do usuário está vago ou pode ser interpretado de mais de uma forma
+- A spec levanta perguntas que bloqueiam decisões de arquitetura no `plan.md`
+- Há dependências externas (integrações, regras de negócio, restrições) que não foram mencionadas
+- O escopo não está claro — o que está dentro e o que está fora da feature
+
+> Não avance para `plan.md` com ambiguidades que vão forçar suposições. Clarify primeiro.
+
+**Nunca implemente sem spec.md aprovada.**
+**Nunca abra PR sem todos os critérios de done satisfeitos.**
+
+---
+
+## Definition of Done [PROJETO]
+
+Uma task está concluída quando:
+
+- [ ] Código implementado conforme o `plan.md`
+- [ ] Testes escritos e passando (`[PROJETO - ex: npm test]`)
+- [ ] Sem erros de lint (`[PROJETO - ex: npm run lint]`)
+- [ ] Sem TypeScript errors (`[PROJETO - ex: npm run typecheck]`)
+- [ ] Sem `console.log` de debug no código final
+- [ ] `agent.md` atualizado com decisões tomadas durante a implementação
+
+Uma feature está concluída quando:
+
+- [ ] Todas as tasks da feature finalizadas
+- [ ] Comportamento validado contra `spec.md`
+- [ ] Sem regressões nas features anteriores
+
+---
+
+## Padronização de Código
+
+A fonte da verdade para estilo e qualidade de código é a configuração do projeto. Não invente ou assuma regras — leia os arquivos de configuração presentes:
+
+- **ESLint** (`eslint.config.*`, `.eslintrc.*`) — regras de qualidade, padrões de código e convenções
+- **Prettier** (`.prettierrc`, `prettier.config.*`) — formatação automática (indentação, aspas, ponto-e-vírgula, etc.)
+
+O projeto pode usar um, outro, ou ambos:
+
+| Configuração | Responsabilidade |
+|---|---|
+| Só ESLint | Qualidade e estilo via lint rules |
+| Só Prettier | Formatação automática |
+| ESLint + Prettier | ESLint para qualidade, Prettier para formatação — sem sobreposição de regras |
+
+> Toda regra que conflite com ESLint ou Prettier está errada — a configuração do projeto vence.
+> Se uma convenção desta seção contradiz o config do projeto, siga o config.
+
+---
+
+## Convenções de Código
+
+> Ajuste conforme o projeto. Seja específico — regras vagas não ajudam.
+
+### Nomenclatura
+- Componentes: PascalCase (`UserProfile.tsx`)
+- Hooks: camelCase com prefixo `use` (`useUserProfile.ts`)
+- Utilitários: camelCase (`formatDate.ts`)
+- Constantes: SCREAMING_SNAKE_CASE (`MAX_RETRIES`)
+- Arquivos de teste: mesmo nome com `.test` (`UserProfile.test.tsx`)
+
+### Imports
+- Sempre importar de `index.ts` de outros módulos
+- Proibido importar arquivos internos de outra feature diretamente
+
+---
+
+## Comandos do Projeto
+
+```bash
+# [PROJETO - adicione os comandos reais]
+npm install       # instalar dependências
+npm run dev       # servidor de desenvolvimento
+npm test          # rodar testes
+npm run lint      # verificar lint
+npm run typecheck # verificar tipos
+npm run build     # build de produção
+```
+
+---
+
+## Referências Rápidas
+
+- Constitution: `.specify/memory/constitution.md`
+- Specs ativas: `.specify/specs/`
