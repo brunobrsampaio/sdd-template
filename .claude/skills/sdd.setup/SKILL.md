@@ -1,5 +1,5 @@
 ---
-description: Configura um novo projeto preenchendo todos os blocos [PROJETO] no CLAUDE.md e nos guias de arquitetura do .specify
+description: Configura um novo projeto preenchendo todos os blocos [PROJETO] no CLAUDE.md e nos guias de arquitetura em specs/architecture
 ---
 
 ## O que esse skill faz
@@ -8,8 +8,7 @@ Coleta as informações específicas do projeto através de um questionário gui
 blocos `[PROJETO]` nos arquivos de template:
 
 - `CLAUDE.md`
-- `.specify/memory/constitution.md` (só remove o cabeçalho de instruções)
-- `.specify/memory/architecture/*.md` (apenas os guias marcados como ativos)
+- `specs/architecture/*.md` (apenas os guias marcados como ativos)
 
 Antes de começar, leia os arquivos listados acima para identificar quais blocos `[PROJETO]` ainda
 não foram preenchidos. Se o projeto já estiver parcialmente configurado, pule as fases já concluídas.
@@ -44,9 +43,9 @@ questions: [
     header: "Arquitetura",
     multiSelect: true,
     options: [
-      { label: "Frontend",  description: "Interface web: SPA, SSR, app mobile, etc." },
+      { label: "Frontend",  description: "Interface web: SPA ou SSR" },
       { label: "Backend",   description: "Servidor, API REST/GraphQL ou serviços" },
-      { label: "Database",  description: "Banco de dados (relacional, NoSQL, etc.)" },
+      { label: "Database",  description: "Banco de dados (relacional ou NoSQL)" },
       { label: "DevOps",    description: "CI/CD, containers, deploy e infraestrutura" }
     ]
   }
@@ -72,7 +71,7 @@ questions: [
       },
       {
         label: "Integrado",
-        description: "Frontend servido pelo backend — mesma base de código, sem API separada obrigatória (ex: Laravel + Inertia, Django + HTMX)"
+        description: "Frontend servido pelo backend — mesma base de código, sem API separada obrigatória (ex: Laravel + Inertia)"
       }
     ]
   }
@@ -108,22 +107,19 @@ questions: [
     header: "Framework",
     options: [
       { label: "React 18 + TypeScript",  description: "SPA com tipagem estrita" },
-      { label: "Next.js 14",             description: "Full-stack com SSR/SSG e App Router" },
-      { label: "Vue 3 + TypeScript",     description: "SPA progressivo com Composition API" },
-      { label: "Angular 17",             description: "Framework full-featured com DI nativo" }
+      { label: "Next.js 14",             description: "Full-stack com SSR/SSG e App Router" }
     ]
   }
 ]
 ```
 
-> Se o usuário escolher "Outra" (ex: Svelte, Nuxt, Astro, Remix), pergunte estilização, estado
-> global, estado de servidor, formulários e roteamento em texto livre antes de continuar.
+> Se o usuário escolher "Outra", pergunte estilização, estado global, estado de servidor,
+> formulários e roteamento em texto livre antes de continuar.
 
 ---
 
-**Passo 2 — Estado global e Estado de servidor** (condicional, 2 campos)
+**Passo 2 — Estado global e Estado de servidor** (2 campos)
 
-Se **React 18 + TypeScript** ou **Next.js 14**:
 ```
 questions: [
   {
@@ -149,62 +145,11 @@ questions: [
 ]
 ```
 
-Se **Vue 3 + TypeScript**:
-```
-questions: [
-  {
-    question: "Qual a solução de estado global?",
-    header: "Estado global",
-    options: [
-      { label: "Pinia",         description: "Estado oficial do Vue 3, simples e tipado" },
-      { label: "Vuex 4",        description: "Legado, para projetos que já o usam" },
-      { label: "Não se aplica", description: "Composables com reactivity ou sem estado global" }
-    ]
-  },
-  {
-    question: "Como será gerenciado o estado de servidor?",
-    header: "Estado servidor",
-    options: [
-      { label: "TanStack Query (Vue)", description: "Cache, sync e background refetch" },
-      { label: "Apollo Client",        description: "Para GraphQL com cache normalizado" },
-      { label: "VueUse",               description: "Composables utilitários, incluindo fetch" },
-      { label: "Não se aplica",        description: "Fetch manual ou sem estado remoto" }
-    ]
-  }
-]
-```
-
-Se **Angular 17**:
-```
-questions: [
-  {
-    question: "Qual a solução de estado global?",
-    header: "Estado global",
-    options: [
-      { label: "NgRx",          description: "Redux-like com efeitos e seletores" },
-      { label: "Akita",         description: "Leve, orientado a entidades" },
-      { label: "Elf",           description: "Moderno, funcional, baseado no Akita" },
-      { label: "Não se aplica", description: "Signals nativos ou services com BehaviorSubject" }
-    ]
-  },
-  {
-    question: "Como será gerenciado o estado de servidor?",
-    header: "Estado servidor",
-    options: [
-      { label: "TanStack Query (Angular)", description: "Cache e sync declarativo" },
-      { label: "Apollo Angular",           description: "Para GraphQL" },
-      { label: "HttpClient (nativo)",      description: "HttpClient + signals/observables" },
-      { label: "Não se aplica",            description: "Sem gerenciamento de estado remoto" }
-    ]
-  }
-]
-```
-
 ---
 
-**Passo 3 — Estilização, Formulários e Roteamento** (condicional, 3 campos)
+**Passo 3 — Estilização, Formulários e Roteamento** (3 campos)
 
-Se **React 18 + TypeScript** ou **Next.js 14** — Estilização e Formulários (chamada compartilhada):
+Estilização e Formulários (chamada compartilhada):
 ```
 questions: [
   {
@@ -263,72 +208,6 @@ questions: [
 ]
 ```
 
-Se **Vue 3 + TypeScript**:
-```
-questions: [
-  {
-    question: "Como será feita a estilização?",
-    header: "Estilização",
-    options: [
-      { label: "Tailwind CSS",  description: "Utility-first, sem CSS customizado" },
-      { label: "CSS Modules",   description: "Escopo local por componente" },
-      { label: "UnoCSS",        description: "Atomic CSS engine, mais rápido que Tailwind" },
-      { label: "Sass / SCSS",   description: "CSS com variáveis e mixins" }
-    ]
-  },
-  {
-    question: "Qual a biblioteca de formulários?",
-    header: "Formulários",
-    options: [
-      { label: "VeeValidate",   description: "Validação declarativa, integra com Zod/Yup" },
-      { label: "FormKit",       description: "Framework completo de formulários para Vue" },
-      { label: "Não se aplica", description: "Formulários simples sem biblioteca" }
-    ]
-  },
-  {
-    question: "Qual a solução de roteamento?",
-    header: "Roteamento",
-    options: [
-      { label: "Vue Router 4",  description: "Roteador oficial do Vue 3" },
-      { label: "Não se aplica", description: "Single page sem roteamento dedicado" }
-    ]
-  }
-]
-```
-
-Se **Angular 17**:
-```
-questions: [
-  {
-    question: "Como será feita a estilização?",
-    header: "Estilização",
-    options: [
-      { label: "Angular Material", description: "Design system oficial do Angular" },
-      { label: "Tailwind CSS",     description: "Utility-first, sem CSS customizado" },
-      { label: "Bootstrap 5",      description: "Grid e componentes responsivos" },
-      { label: "Sass / SCSS",      description: "CSS com variáveis e mixins (padrão no Angular)" }
-    ]
-  },
-  {
-    question: "Qual a abordagem de formulários?",
-    header: "Formulários",
-    options: [
-      { label: "Reactive Forms (nativo)",  description: "Model-driven, controlado, tipado com TS" },
-      { label: "Template-driven (nativo)", description: "Simples, baseado em diretivas no template" },
-      { label: "Não se aplica",            description: "Sem formulários complexos" }
-    ]
-  },
-  {
-    question: "Qual a solução de roteamento?",
-    header: "Roteamento",
-    options: [
-      { label: "Angular Router (nativo)", description: "Roteador embutido, lazy loading com standalone" },
-      { label: "Não se aplica",           description: "Single page sem roteamento" }
-    ]
-  }
-]
-```
-
 ### Frontend Integrado
 
 > Esta seção se aplica apenas ao modo **Integrado** (Fase 2.5), quando Frontend e Backend foram selecionados.
@@ -347,7 +226,6 @@ questions: [
     options: [
       { label: "Blade + Alpine.js",    description: "Templates server-side com interatividade leve, sem SPA" },
       { label: "Livewire",             description: "Componentes reativos server-side, sem JavaScript pesado" },
-      { label: "Inertia.js + Vue 3",   description: "SPA com routing e auth do Laravel, sem API REST separada" },
       { label: "Inertia.js + React",   description: "SPA com routing e auth do Laravel, sem API REST separada" }
     ]
   }
@@ -363,60 +241,13 @@ questions: [
     options: [
       { label: "Twig + Stimulus",      description: "Templates nativos com Symfony UX" },
       { label: "Symfony UX + Turbo",   description: "Navegação rápida com Turbo e Stimulus" },
-      { label: "Inertia.js + Vue 3",   description: "SPA com routing do Symfony, sem API REST separada" },
       { label: "Inertia.js + React",   description: "SPA com routing do Symfony, sem API REST separada" }
     ]
   }
 ]
 ```
 
-Se **Django**:
-```
-questions: [
-  {
-    question: "Como o frontend será integrado ao Django?",
-    header: "Frontend",
-    options: [
-      { label: "Django Templates",     description: "Templates server-side nativos com DTL" },
-      { label: "HTMX",                 description: "Interatividade hypermedia sem SPA" },
-      { label: "Inertia.js + Vue 3",   description: "SPA integrada via django-inertia" },
-      { label: "Inertia.js + React",   description: "SPA integrada via django-inertia" }
-    ]
-  }
-]
-```
-
-Se **Flask** ou **Litestar**:
-```
-questions: [
-  {
-    question: "Como o frontend será integrado?",
-    header: "Frontend",
-    options: [
-      { label: "Jinja2",           description: "Templates server-side (nativo no Flask)" },
-      { label: "HTMX",             description: "Interatividade hypermedia sem SPA" },
-      { label: "Não se aplica",    description: "Backend serve apenas arquivos estáticos ou API" }
-    ]
-  }
-]
-```
-
-Se **FastAPI**:
-```
-questions: [
-  {
-    question: "Como o frontend será integrado ao FastAPI?",
-    header: "Frontend",
-    options: [
-      { label: "Jinja2",           description: "Templates server-side via fastapi + Jinja2" },
-      { label: "HTMX",             description: "Interatividade hypermedia sobre endpoints FastAPI" },
-      { label: "Não se aplica",    description: "FastAPI é API-only neste projeto — considere modo Separados" }
-    ]
-  }
-]
-```
-
-Se **Fastify**, **Express**, **NestJS** ou **Hono**:
+Se **Fastify**, **Express**, **NestJS** ou **Hono** (Node.js):
 ```
 questions: [
   {
@@ -425,23 +256,7 @@ questions: [
     options: [
       { label: "EJS / Handlebars",     description: "Templates server-side clássicos" },
       { label: "HTMX",                 description: "Interatividade hypermedia sem SPA" },
-      { label: "Inertia.js + Vue 3",   description: "SPA sem API separada" },
       { label: "Inertia.js + React",   description: "SPA sem API separada" }
-    ]
-  }
-]
-```
-
-Se **Gin**, **Echo**, **Fiber** ou **Chi** (Go):
-```
-questions: [
-  {
-    question: "Como o frontend será integrado ao servidor Go?",
-    header: "Frontend",
-    options: [
-      { label: "html/template (nativo)", description: "Templates Go server-side" },
-      { label: "HTMX",                   description: "Interatividade hypermedia" },
-      { label: "Não se aplica",          description: "Backend é API-only neste projeto — considere modo Separados" }
     ]
   }
 ]
@@ -449,14 +264,11 @@ questions: [
 
 ---
 
-**Passo 2 — Stack complementar** (somente se escolheu **Inertia.js + React** ou **Inertia.js + Vue 3**)
+**Passo 2 — Stack complementar** (somente se escolheu **Inertia.js + React**)
 
-Se **Inertia.js + React**: execute os Passos 2 e 3 da seção Frontend padrão usando as opções de
-**React 18 + TypeScript** (estado global, estado de servidor, estilização, formulários, roteamento).
-Para roteamento, use "Não se aplica" — o routing é gerenciado pelo backend.
-
-Se **Inertia.js + Vue 3**: execute os Passos 2 e 3 da seção Frontend padrão usando as opções de
-**Vue 3 + TypeScript**. Para roteamento, use "Não se aplica".
+Se **Inertia.js + React**: execute os Passos 2 e 3 da seção Frontend padrão (estado global,
+estado de servidor, estilização, formulários). Para roteamento, use "Não se aplica" — o routing
+é gerenciado pelo backend.
 
 Para todas as demais abordagens (Blade, Livewire, Twig, HTMX, Templates, etc.), pule o Passo 2
 — não há stack de SPA a configurar.
@@ -473,17 +285,15 @@ questions: [
     question: "Qual a linguagem principal do backend?",
     header: "Linguagem",
     options: [
-      { label: "TypeScript / JavaScript",  description: "Ecossistema Node.js, Bun ou Deno" },
-      { label: "Python",                   description: "Django, FastAPI, Flask, etc." },
-      { label: "PHP",                      description: "Laravel, Symfony, etc." },
-      { label: "Go",                       description: "Alta performance, binário único" }
+      { label: "TypeScript / JavaScript",  description: "Ecossistema Node.js ou Deno" },
+      { label: "PHP",                      description: "Laravel, Symfony, etc." }
     ]
   }
 ]
 ```
 
-> Se o usuário escolher "Outra" (ex: Java, Ruby, Rust, C#), pergunte runtime, framework, ORM e
-> validação em texto livre antes de continuar com o Passo 3.
+> Se o usuário escolher "Outra", pergunte runtime, framework, ORM e validação em texto livre
+> antes de continuar com o Passo 3.
 
 ---
 
@@ -500,7 +310,6 @@ questions: [
     options: [
       { label: "Node.js 20",  description: "LTS atual, ecossistema mais amplo" },
       { label: "Node.js 22",  description: "LTS mais recente" },
-      { label: "Bun",         description: "Runtime rápido com bundler embutido" },
       { label: "Deno 2",      description: "Seguro por padrão, suporte nativo a TS" }
     ]
   },
@@ -527,42 +336,6 @@ questions: [
 ]
 ```
 
-**Se Python:**
-```
-questions: [
-  {
-    question: "Qual o runtime?",
-    header: "Runtime",
-    options: [
-      { label: "Python 3.12",  description: "Versão estável atual" },
-      { label: "Python 3.11",  description: "Versão LTS anterior, amplo suporte" },
-      { label: "Python 3.13",  description: "Versão mais recente" },
-      { label: "PyPy 3.10",    description: "Runtime alternativo com JIT" }
-    ]
-  },
-  {
-    question: "Qual o framework de servidor?",
-    header: "Framework",
-    options: [
-      { label: "FastAPI",   description: "Async, OpenAPI automático, type hints" },
-      { label: "Django",    description: "Full-stack, batteries included" },
-      { label: "Flask",     description: "Micro-framework, flexível" },
-      { label: "Litestar",  description: "Moderno, performático, tipo-seguro" }
-    ]
-  },
-  {
-    question: "Qual o ORM ou query builder?",
-    header: "ORM",
-    options: [
-      { label: "SQLAlchemy",      description: "Maduro, flexível, Core + ORM" },
-      { label: "Django ORM",      description: "Nativo ao Django, ActiveRecord" },
-      { label: "Tortoise ORM",    description: "Async, inspirado no Django ORM" },
-      { label: "Não se aplica",   description: "Queries manuais ou sem ORM" }
-    ]
-  }
-]
-```
-
 **Se PHP:**
 ```
 questions: [
@@ -570,20 +343,19 @@ questions: [
     question: "Qual o runtime?",
     header: "Runtime",
     options: [
-      { label: "PHP 8.3",  description: "Versão estável atual" },
-      { label: "PHP 8.2",  description: "Versão LTS anterior" },
-      { label: "PHP 8.4",  description: "Versão mais recente" },
-      { label: "FrankenPHP", description: "Runtime moderno embutido no Caddy" }
+      { label: "PHP 8.3",     description: "Versão estável atual" },
+      { label: "PHP 8.2",     description: "Versão LTS anterior" },
+      { label: "PHP 8.4",     description: "Versão mais recente" },
+      { label: "FrankenPHP",  description: "Runtime moderno embutido no Caddy" }
     ]
   },
   {
     question: "Qual o framework de servidor?",
     header: "Framework",
     options: [
-      { label: "Laravel",    description: "Full-stack, DX elevada, Eloquent + Blade" },
-      { label: "Symfony",    description: "Robusto, componentizado, enterprise" },
-      { label: "Slim",       description: "Micro-framework, leve e flexível" },
-      { label: "Hyperf",     description: "Async, corrotinas, alta performance" }
+      { label: "Laravel",   description: "Full-stack, DX elevada, Eloquent + Blade" },
+      { label: "Symfony",   description: "Robusto, componentizado, enterprise" },
+      { label: "Slim",      description: "Micro-framework, leve e flexível" }
     ]
   },
   {
@@ -594,42 +366,6 @@ questions: [
       { label: "Doctrine",      description: "DataMapper, padrão do Symfony" },
       { label: "Cycle ORM",     description: "Moderno, suporte a relacionamentos complexos" },
       { label: "Não se aplica", description: "Queries manuais ou sem ORM" }
-    ]
-  }
-]
-```
-
-**Se Go:**
-```
-questions: [
-  {
-    question: "Qual o runtime?",
-    header: "Runtime",
-    options: [
-      { label: "Go 1.22",  description: "Versão estável atual" },
-      { label: "Go 1.21",  description: "Versão LTS anterior" },
-      { label: "Go 1.23",  description: "Versão mais recente" },
-      { label: "TinyGo",   description: "Para microcontroladores e WASM" }
-    ]
-  },
-  {
-    question: "Qual o framework de servidor?",
-    header: "Framework",
-    options: [
-      { label: "Gin",         description: "Popular, rápido, bom ecossistema" },
-      { label: "Echo",        description: "Minimalista e extensível" },
-      { label: "Fiber",       description: "Inspirado no Express, alta performance" },
-      { label: "Chi",         description: "Leve, compatível com net/http padrão" }
-    ]
-  },
-  {
-    question: "Qual o ORM ou query builder?",
-    header: "ORM",
-    options: [
-      { label: "GORM",          description: "ORM mais popular do ecossistema Go" },
-      { label: "sqlx",          description: "Extensão do database/sql, sem magia" },
-      { label: "Ent",           description: "Graph-based ORM, geração de código" },
-      { label: "Não se aplica", description: "database/sql puro ou sem ORM" }
     ]
   }
 ]
@@ -667,32 +403,6 @@ questions: [
 ]
 ```
 
-**Se Python:**
-```
-questions: [
-  {
-    question: "Como será feita a autenticação?",
-    header: "Autenticação",
-    options: [
-      { label: "JWT + refresh token",  description: "Stateless, tokens rotativos" },
-      { label: "OAuth2",               description: "Delegação de acesso com providers" },
-      { label: "Django Auth",          description: "Sistema nativo de sessão do Django" },
-      { label: "Não se aplica",        description: "Sem autenticação ou a definir" }
-    ]
-  },
-  {
-    question: "Qual a biblioteca de validação?",
-    header: "Validação",
-    options: [
-      { label: "Pydantic v2",      description: "Type hints, ultra performático" },
-      { label: "Marshmallow",      description: "Serialização e validação flexível" },
-      { label: "Django Forms",     description: "Validação nativa do Django" },
-      { label: "Não se aplica",    description: "Validação manual ou a definir" }
-    ]
-  }
-]
-```
-
 **Se PHP:**
 ```
 questions: [
@@ -714,31 +424,6 @@ questions: [
       { label: "Symfony Validator",   description: "Baseado em constraints, annotations" },
       { label: "Respect/Validation",  description: "Standalone, fluent interface" },
       { label: "Não se aplica",       description: "Validação manual ou a definir" }
-    ]
-  }
-]
-```
-
-**Se Go:**
-```
-questions: [
-  {
-    question: "Como será feita a autenticação?",
-    header: "Autenticação",
-    options: [
-      { label: "JWT + refresh token",  description: "Stateless com golang-jwt/jwt" },
-      { label: "OAuth2",               description: "golang.org/x/oauth2" },
-      { label: "Sessão / Cookie",      description: "Stateful com gorilla/sessions" },
-      { label: "Não se aplica",        description: "Sem autenticação ou a definir" }
-    ]
-  },
-  {
-    question: "Qual a biblioteca de validação?",
-    header: "Validação",
-    options: [
-      { label: "go-playground/validator",  description: "Mais popular, struct tags" },
-      { label: "ozzo-validation",          description: "Fluent API, sem struct tags" },
-      { label: "Não se aplica",            description: "Validação manual ou a definir" }
     ]
   }
 ]
@@ -794,22 +479,6 @@ questions: [
 ]
 ```
 
-Se Backend ativo com **Python**:
-```
-questions: [
-  {
-    question: "Como serão gerenciadas as migrations?",
-    header: "Migrations",
-    options: [
-      { label: "Alembic",           description: "Padrão para SQLAlchemy" },
-      { label: "Django Migrations", description: "Nativo ao Django" },
-      { label: "Aerich",            description: "Para Tortoise ORM" },
-      { label: "Não se aplica",     description: "Sem migrations automatizadas" }
-    ]
-  }
-]
-```
-
 Se Backend ativo com **PHP**:
 ```
 questions: [
@@ -826,22 +495,6 @@ questions: [
 ]
 ```
 
-Se Backend ativo com **Go**:
-```
-questions: [
-  {
-    question: "Como serão gerenciadas as migrations?",
-    header: "Migrations",
-    options: [
-      { label: "goose",          description: "Popular, suporta SQL e Go migrations" },
-      { label: "golang-migrate", description: "Agnóstico de banco, CLI e library" },
-      { label: "Ent Migrate",    description: "Integrado ao Ent ORM" },
-      { label: "Não se aplica",  description: "Sem migrations automatizadas" }
-    ]
-  }
-]
-```
-
 Se Backend **não selecionado** ou linguagem **Outra** — pergunte ORM + Migrations:
 ```
 questions: [
@@ -850,7 +503,6 @@ questions: [
     header: "ORM",
     options: [
       { label: "Drizzle ORM / Prisma",  description: "TypeScript — type-safe" },
-      { label: "SQLAlchemy",            description: "Python — maduro e completo" },
       { label: "Eloquent / Doctrine",   description: "PHP — Laravel ou Symfony" },
       { label: "Não se aplica",         description: "Queries manuais ou sem ORM" }
     ]
@@ -860,7 +512,7 @@ questions: [
     header: "Migrations",
     options: [
       { label: "Drizzle Kit / Prisma Migrate", description: "TypeScript" },
-      { label: "Alembic / Django Migrations",  description: "Python" },
+      { label: "Laravel / Doctrine Migrations", description: "PHP" },
       { label: "Flyway / Liquibase",           description: "Agnóstico de linguagem" },
       { label: "Não se aplica",                description: "Sem migrations automatizadas" }
     ]
@@ -878,7 +530,7 @@ questions: [
       { label: "Docker Compose isolado",     description: "Container dedicado por pipeline" },
       { label: "SQLite em memória",          description: "Rápido, sem persistência" },
       { label: "Banco real em amb. isolado", description: "Instância separada de staging" },
-      { label: "Não se aplica",             description: "Sem testes de integração com banco" }
+      { label: "Não se aplica",              description: "Sem testes de integração com banco" }
     ]
   }
 ]
@@ -966,12 +618,12 @@ comentários indicando a camada. Omita completamente as ações que não se apli
 
 | Ação | Derivação |
 |------|-----------|
-| Instalar dependências | Bun → `bun install` · outros → `npm install` |
-| Servidor de dev | Next.js + Bun → `bun dev` · qualquer Next.js → `npm run dev` · outros → `npm run dev` |
-| Rodar testes | Bun → `bun test` · outros → `npm test` |
-| Verificar lint | Bun → `bun run lint` · outros → `npm run lint` |
-| Verificar tipos | Bun → `bun run typecheck` · outros → `npm run typecheck` |
-| Build de produção | Bun → `bun run build` · outros → `npm run build` |
+| Instalar dependências | `npm install` |
+| Servidor de dev | Next.js → `npm run dev` · React → `npm run dev` |
+| Rodar testes | `npm test` |
+| Verificar lint | `npm run lint` |
+| Verificar tipos | `npm run typecheck` |
+| Build de produção | `npm run build` |
 
 ---
 
@@ -982,36 +634,25 @@ comentários indicando a camada. Omita completamente as ações que não se apli
 | Runtime | Comando |
 |---------|---------|
 | Node.js / Deno | `npm install` |
-| Bun | `bun install` |
-| Python + pip | `pip install -r requirements.txt` |
-| Python + Poetry | `poetry install` |
-| Python + uv | `uv sync` |
 | PHP | `composer install` |
-| Go | `go mod download` |
 
 **Servidor de desenvolvimento por framework:**
 
 | Framework | Comando |
 |-----------|---------|
-| Django | `python manage.py runserver` |
-| FastAPI | `uvicorn main:app --reload` |
-| Flask | `flask run --debug` |
-| Litestar | `litestar run --reload` |
 | Laravel | `php artisan serve` |
 | Symfony | `symfony server:start` |
 | Slim | `php -S localhost:8000 -t public` |
-| Go (qualquer framework) | `go run ./...` |
 | Node.js (Fastify / Express / NestJS / Hono) | `npm run dev` |
-| Bun | `bun dev` |
 
 **Demais ações:**
 
 | Ação | Derivação |
 |------|-----------|
-| Rodar testes | Node.js → `npm test` · Bun → `bun test` · Python → `pytest` · Laravel → `php artisan test` · Symfony → `php bin/phpunit` · Go → `go test ./...` |
-| Verificar lint | Node.js → `npm run lint` · Bun → `bun run lint` · Python → `ruff check .` · Laravel → `./vendor/bin/pint` · Symfony → `./vendor/bin/phpcs` · Go → `golangci-lint run` |
-| Verificar tipos | TypeScript+Node.js → `npm run typecheck` · TypeScript+Bun → `bun run typecheck` · Python → `mypy .` · PHP → `./vendor/bin/phpstan analyse` · Go → _(omita — tipagem estática nativa)_ |
-| Build de produção | Node.js → `npm run build` · Bun → `bun run build` · Go → `go build ./...` · PHP sem assets → _(omita)_ · Python sem etapa de build → _(omita)_ |
+| Rodar testes | Node.js → `npm test` · Laravel → `php artisan test` · Symfony → `php bin/phpunit` |
+| Verificar lint | Node.js → `npm run lint` · Laravel → `./vendor/bin/pint` · Symfony → `./vendor/bin/phpcs` |
+| Verificar tipos | TypeScript → `npm run typecheck` · PHP → `./vendor/bin/phpstan analyse` |
+| Build de produção | Node.js → `npm run build` · PHP sem assets → _(omita)_ |
 
 ---
 
@@ -1173,12 +814,7 @@ Após coletar todas as respostas, edite os arquivos um de cada vez:
 6. Na seção `Comandos do Projeto`, substitua os exemplos pelos comandos reais da Fase 4. Mantenha apenas os comandos que se aplicam ao projeto.
 7. Na seção `Referências Rápidas`, adicione os links da Fase 5 e remova o placeholder `[PROJETO - adicione links relevantes...]`. Se não houver links, remova apenas o placeholder.
 
-### .specify/memory/constitution.md
-
-Remova o bloco de instruções no topo (as linhas com `>` antes do primeiro `---`).
-Não há blocos `[PROJETO]` no corpo — nenhuma outra mudança é necessária.
-
-### Guias ativos (.specify/memory/architecture/*.md)
+### Guias ativos (specs/architecture/*.md)
 
 Para cada guia marcado como ativo na Fase 2:
 

@@ -1,6 +1,6 @@
 # sdd-templates
 
-Templates base para projetos usando Spec-Driven Development (SDD) com Claude Code e SpecKit. Todos os arquivos que se encontram dentro desse repositório devem ser utilizados como templates de auxílio. Principlamente o `CLAUDE.md` e em especial `.specify/memory/constitution.md`, que deve ser usado como **inputação** para a criação do real arquivo de constituição.
+Templates base para projetos usando Spec-Driven Development (SDD). São agnósticos de ferramenta: funcionam com qualquer assistente de código (Claude Code, Cursor, etc.) e com qualquer fluxo de SDD, manual ou automatizado. Todos os arquivos deste repositório devem ser usados como templates de auxílio — principalmente o `CLAUDE.md`, que reúne os princípios não-negociáveis e a orientação de sessão.
 
 Os arquivos para definição de arquitetura como frontend, backend, database e devops, devem ser atualizados conforme a necessidade do projeto e suas stacks. A pasta pode ser copiada em sua totalidade e colada no projeto de destino e assim atualizados.
 
@@ -8,16 +8,14 @@ Os arquivos para definição de arquitetura como frontend, backend, database e d
 
 ```
 sdd-templates/
-  CLAUDE.md                              ← orientador de sessão do Claude Code
+  CLAUDE.md                              ← princípios não-negociáveis + orientação de sessão
   README.md                              ← este arquivo
-  .specify/
-    memory/
-      constitution.md                    ← princípios universais não-negociáveis
-      architecture/
-        frontend.md                      ← stack, componentes, testes de UI, acessibilidade
-        backend.md                       ← API, autenticação, segurança, testes de serviço
-        database.md                      ← modelagem, migrations, acesso a dados, performance
-        devops.md                        ← CI/CD, ambientes, Docker, branching, secrets
+  specs/
+    architecture/
+      frontend.md                        ← stack, componentes, testes de UI, acessibilidade
+      backend.md                         ← API, autenticação, segurança, testes de serviço
+      database.md                        ← modelagem, migrations, acesso a dados, performance
+      devops.md                          ← CI/CD, ambientes, Docker, branching, secrets
 ```
 
 ## Marcadores
@@ -30,7 +28,7 @@ sdd-templates/
 **1. Copie os arquivos para o projeto:**
 ```bash
 cp CLAUDE.md /seu-projeto/
-cp -r .specify /seu-projeto/
+cp -r specs /seu-projeto/
 ```
 
 **2. Preencha os `[PROJETO]` no `CLAUDE.md`:**
@@ -43,18 +41,17 @@ cp -r .specify /seu-projeto/
 
 No `CLAUDE.md`, marque com `[x]` apenas os guias do projeto:
 ```markdown
-- [x] `.specify/memory/architecture/frontend.md`
-- [ ] `.specify/memory/architecture/backend.md`   ← desative o que não usar
+- [x] `specs/architecture/frontend.md`
+- [ ] `specs/architecture/backend.md`   ← desative o que não usar
 ```
 
 **4. Preencha os `[PROJETO]` em cada guia de arquitetura ativo:**
 - Stack específica (framework, ORM, etc.)
 - Ajuste thresholds de cobertura de testes se necessário
 
-**5. Se usar SpecKit:**
-```bash
-specify init --ai claude
-```
+**5. (Opcional) Use o setup guiado:**
+
+Em vez de preencher os `[PROJETO]` à mão, rode a skill `sdd.setup` — ela conduz um questionário e preenche o `CLAUDE.md` e os guias de arquitetura ativos automaticamente.
 
 ## Como compor por tipo de projeto
 
@@ -76,4 +73,4 @@ Sempre que aprender algo novo em um projeto:
 - **Mudou de stack?** Atualize o `[PROJETO]` do guia — ou crie uma variante
 
 O objetivo é que este repositório reflita suas opiniões atuais sobre como construir software.
-Use o "Registro de Alterações" da `constitution.md` para decisões que mudaram de direção.
+Use o "Registro de Alterações" do `CLAUDE.md` para decisões que mudaram de direção.

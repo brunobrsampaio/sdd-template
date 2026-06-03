@@ -1,7 +1,7 @@
 # Guia de Arquitetura — DevOps
 
 > Regras específicas para CI/CD, ambientes, containers e infraestrutura.
-> Complementa a constitution — não a substitui.
+> Complementa os princípios não-negociáveis do `CLAUDE.md` — não os substitui.
 > Seções marcadas com [PROJETO] devem ser ajustadas por projeto.
 > Seções marcadas com [PADRÃO] refletem boas práticas gerais.
 > Remover esse bloco ao iniciar um novo projeto. O arquivo deve começar a partir da seção `Stack`
