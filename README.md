@@ -11,6 +11,7 @@ sdd-templates/
   CLAUDE.md                              ← princípios não-negociáveis + orientação de sessão
   README.md                              ← este arquivo
   .specs/
+    changelog.md                        ← histórico de decisões (princípios, guias, convenções)
     architecture/
       frontend/
         spec.md                          ← stack, componentes, testes de UI, acessibilidade
@@ -77,4 +78,4 @@ Sempre que aprender algo novo em um projeto:
 - **Mudou de stack?** Atualize o `[PROJETO]` do guia — ou crie uma variante
 
 O objetivo é que este repositório reflita suas opiniões atuais sobre como construir software.
-Use o "Registro de Alterações" do `CLAUDE.md` para decisões que mudaram de direção.
+Use o [`.specs/changelog.md`](.specs/changelog.md) para decisões que mudaram de direção.

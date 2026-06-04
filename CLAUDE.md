@@ -60,6 +60,7 @@ Os artefatos do projeto seguem esta hierarquia. Leia-os nesta ordem antes de qua
 ```
 CLAUDE.md                  ← Princípios não-negociáveis + orientação de sessão (este arquivo)
 .specs/
+  changelog.md             ← histórico de decisões que mudam princípios ou guias
   architecture/
     frontend/
       spec.md              ← orientações para arquitetura da camada de frontend (UI, componentes, testes de interface, acessibilidade)
@@ -142,17 +143,7 @@ Uma feature está concluída quando:
 
 ## Referências Rápidas
 
-- Princípios não-negociáveis: seção "Princípios Não-Negociáveis" (acima)
-- Specs ativas: `.specs/`
-- Guias de arquitetura: `.specs/architecture/`
-
----
-
-## Registro de Alterações
-
-> Documente mudanças significativas nos princípios não-negociáveis.
-> Cria um histórico de decisões do projeto ao longo do tempo.
-
-| Data | Artigo | Mudança | Motivo |
-|------|--------|---------|--------|
-| [data] | [artigo] | [o que mudou] | [por que mudou] |
+- **Princípios não-negociáveis:** seção "Princípios Não-Negociáveis" (acima)
+- **Specs ativas:** `.specs/`
+- **Guias de arquitetura:** `.specs/architecture/`
+- **Registro de alterações:** [`.specs/changelog.md`](.specs/changelog.md)
