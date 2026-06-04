@@ -832,6 +832,27 @@ Para cada guia marcado como ativo na Fase 2:
 2. Preencha a seção `Stack [PROJETO]` com as respostas da Fase 3. O título deve ficar `## Stack` (sem `[PROJETO]`).
 3. Remova as linhas de campos que o usuário indicou como "não se aplica".
 
+### Arquivos complementares do Backend (.specs/architecture/backend/)
+
+Os arquivos `tests.md`, `services.md` e `api.md` contêm exemplos nas duas linguagens (Node.js/TypeScript e PHP).
+Após identificar a linguagem escolhida na Fase 3, **remova os exemplos e referências da linguagem não selecionada**:
+
+**Se a linguagem é TypeScript / JavaScript:**
+- Em `tests.md`: remova as seções "Exemplo: Teste unitário de service (PHP/Laravel)" e "Exemplo: Teste de integração de rota (PHP/Laravel)"
+- Em `services.md`: remova as seções "Exemplo: Service (PHP/Laravel)" e "Exemplo: Erros tipados (PHP/Laravel)"
+- Em `api.md`: remova as seções "Exemplo: Controller (PHP/Laravel)", "Exemplo: Validação (PHP/Laravel — FormRequest)" e "Exemplo: Error handler global (PHP/Laravel)"
+- Em `spec.md`: na tabela de Nomenclatura, remova a coluna PHP. Na seção "PHP (quando aplicável)", remova-a inteiramente.
+
+**Se a linguagem é PHP:**
+- Em `tests.md`: remova as seções "Exemplo: Teste unitário de service (Node.js/TypeScript)", "Exemplo: Teste de integração de rota (Node.js/TypeScript)" e "Exemplo: Factory para testes"
+- Em `services.md`: remova as seções "Exemplo: Service (Node.js/TypeScript)", "Exemplo: Erros tipados (Node.js/TypeScript)" e "Exemplo: Repository (Node.js/TypeScript)"
+- Em `api.md`: remova as seções "Exemplo: Controller (Node.js/TypeScript — Fastify)", "Exemplo: Validação (Node.js/TypeScript — Zod)", "Exemplo: Middleware de autenticação (Node.js/TypeScript)" e "Exemplo: Error handler global (Node.js/TypeScript)"
+- Em `spec.md`: na tabela de Nomenclatura, remova a coluna "Node.js / TypeScript". Na seção "TypeScript (quando aplicável)", remova-a inteiramente.
+
+**Em ambos os casos:**
+- Nos anti-patterns, mantenha apenas os exemplos na linguagem selecionada. Se um anti-pattern tem exemplos nas duas linguagens, remova o da linguagem não selecionada.
+- Atualize as tabelas comparativas em `spec.md` (seção Testes) para manter apenas a linha da linguagem selecionada.
+
 ### Guias inativos
 
 Não modifique guias que não foram selecionados como ativos na Fase 2.

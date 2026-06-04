@@ -7,10 +7,10 @@
 
 ## Regras Gerais [PADRÃO]
 
-- Hooks são sempre arrow functions — `export const useHook = () => {}`
-- Prefixo `use` obrigatório — sem exceções
-- Hooks não devem conter JSX — se renderiza algo, é um componente
-- Hooks globais vivem em `src/hooks/` — hooks locais (usados por um único componente) vivem na pasta do componente
+- **Declaração:** arrow functions — `export const useHook = () => {}`
+- **Prefixo:** `use` obrigatório — sem exceções
+- **JSX:** hooks não devem conter JSX — se renderiza algo, é um componente
+- **Localização:** hooks globais em `src/hooks/` — hooks locais na pasta do componente
 
 > Para a regra de arquivo único vs pasta, veja "Estrutura de Módulos Internos" no [`spec.md`](./spec.md).
 

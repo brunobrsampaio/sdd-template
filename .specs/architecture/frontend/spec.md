@@ -33,13 +33,13 @@ As regras abaixo complementam os configs — servem para cobrir o que linters e 
 
 ### Nomenclatura
 
-- Pastas de componentes: `PascalCase` (`Button/`, `UserProfile/`)
-- Hooks: `camelCase` com prefixo `use` (`useUserProfile.ts`)
-- Utilitários: `camelCase` (`formatDate.ts`)
-- Constantes: `SCREAMING_SNAKE_CASE` (`MAX_RETRIES`)
-- Tipos e interfaces: `PascalCase` (`UserProfileProps`)
-- Contextos: `PascalCase` com sufixo `Context` (`AuthContext/`)
-- Providers: `PascalCase` com sufixo `Provider` (`AuthProvider/`)
+- **Pastas de componentes:** `PascalCase` (`Button/`, `UserProfile/`)
+- **Hooks:** `camelCase` com prefixo `use` (`useUserProfile.ts`)
+- **Utilitários:** `camelCase` (`formatDate.ts`)
+- **Constantes:** `SCREAMING_SNAKE_CASE` (`MAX_RETRIES`)
+- **Tipos e interfaces:** `PascalCase` (`UserProfileProps`)
+- **Contextos:** `PascalCase` com sufixo `Context` (`AuthContext/`)
+- **Providers:** `PascalCase` com sufixo `Provider` (`AuthProvider/`)
 
 ### Estrutura de Módulos Internos
 
@@ -74,9 +74,9 @@ utils/
 > Use arquivo único quando a implementação é pequena e autocontida.
 
 **Regras gerais:**
-- `index.tsx` / `index.ts` é o único export público — importações externas usam o path da pasta (`import { Button } from '@/components/Button'`)
-- `types.ts` só deve existir quando os tipos são volumosos ou reutilizados por outros módulos — para tipos simples, mantenha no próprio `index`
-- Proibido importar paths internos de outro módulo (ex: `../Button/styles`, `../useAuth/types`)
+- **Export público:** `index.tsx` / `index.ts` é o único ponto de entrada — importações externas usam o path da pasta (`import { Button } from '@/components/Button'`)
+- **Types:** `types.ts` só quando os tipos são volumosos ou reutilizados — para tipos simples, mantenha no próprio `index`
+- **Imports internos:** proibido importar paths internos de outro módulo (ex: `../Button/styles`, `../useAuth/types`)
 
 ### Arquitetura de Pastas
 
@@ -95,34 +95,49 @@ src/
 └── types/          # Types/interfaces globais e compartilhadas
 ```
 
-- `components/` — apenas componentes genéricos reutilizáveis (UI primitivos, layout). Componentes específicos de uma feature vivem na pasta da feature/página.
-- `hooks/` — apenas hooks globais. Hooks específicos de um componente vivem na pasta do componente.
-- `types/` — apenas types/interfaces compartilhadas entre múltiplos módulos. Types locais ficam no componente.
-- Barrel exports (`index.ts`) em cada módulo — proibido importar paths internos de outro módulo
+- **`components/`:** apenas componentes genéricos reutilizáveis (UI primitivos, layout). Específicos de feature vivem na pasta da feature/página.
+- **`hooks/`:** apenas hooks globais. Hooks específicos vivem na pasta do componente.
+- **`types/`:** apenas types/interfaces compartilhadas entre múltiplos módulos. Types locais ficam no componente.
+- **Barrel exports:** `index.ts` em cada módulo — proibido importar paths internos de outro módulo
 
 ### TypeScript
 
-- `strict: true` habilitado — sem exceções
-- Proibido `any` — use `unknown` quando o tipo é realmente indeterminado
-- Proibido type assertions (`as`) salvo em integrações com libs sem tipagem
-- Interfaces para props, types para unions e utilitários
-- Retorno de funções explícito em funções públicas — inferência apenas em funções internas
+- **Strict mode:** `strict: true` habilitado — sem exceções
+- **`any`:** proibido — use `unknown` quando o tipo é realmente indeterminado
+- **Type assertions:** proibido `as` salvo em integrações com libs sem tipagem
+- **Interfaces vs types:** interfaces para props, types para unions e utilitários
+- **Retorno:** explícito em funções públicas — inferência apenas em funções internas
 
 ### Boas Práticas React
 
-- Componentes são arrow functions (`const Component = () => {}`) — proibido class components e function declarations
-- Proibido lógica de negócio dentro do JSX — extraia para variáveis ou hooks
-- Proibido `useEffect` para derivar estado — use `useMemo` ou compute diretamente
-- Proibido `useEffect` para sincronizar com props — remodele com key ou estado elevado
-- Callbacks estáveis: envolva com `useCallback` apenas quando passados como prop a componentes memoizados
-- Proibido `index` como key em listas dinâmicas (renderização, reordenação)
-- Proibido manipulação direta do DOM — use refs quando necessário
+- **Declaração:** arrow functions (`const Component = () => {}`) — proibido class components e function declarations
+- **JSX:** proibido lógica de negócio dentro do JSX — extraia para variáveis ou hooks
+- **`useEffect` (derivar estado):** proibido — use `useMemo` ou compute diretamente
+- **`useEffect` (sync props):** proibido — remodele com key ou estado elevado
+- **`useCallback`:** apenas quando passado como prop a componentes memoizados
+- **Keys em listas:** proibido `index` em listas dinâmicas (renderização, reordenação)
+- **DOM:** proibido manipulação direta — use refs quando necessário
 
 ### Imports
 
-- Ordenação automática via ESLint ou Prettier (respeitar config do projeto)
-- Imports absolutos preferidos sobre relativos profundos (`@/components/...`)
-- Proibido importar side-effects desnecessários (`import 'lib/styles'` sem uso)
+- **Ordenação:** automática via ESLint ou Prettier (respeitar config do projeto)
+- **Paths:** absolutos preferidos sobre relativos profundos (`@/components/...`)
+- **Side-effects:** proibido importar side-effects desnecessários (`import 'lib/styles'` sem uso)
+
+---
+
+## Acessibilidade [PADRÃO]
+
+- **Teclado:** navegação funcional em todos os fluxos principais
+- **Imagens:** `alt` descritivo — `alt=""` apenas para imagens decorativas
+
+---
+
+## Performance [PADRÃO]
+
+- **Imports:** proibido importar bibliotecas inteiras quando só parte é usada (`import { X } from 'lib'`)
+- **Lazy loading:** obrigatório para rotas e componentes pesados
+- **Imagens:** dimensões explícitas para evitar layout shift
 
 ---
 
@@ -134,18 +149,3 @@ Para detalhes, exemplos e anti-patterns de cada tema, consulte os arquivos dedic
 - **Hooks:** [`hooks.md`](./hooks.md) — regras, estrutura e exemplos de hooks customizados
 - **Utils:** [`utils.md`](./utils.md) — regras, estrutura e exemplos de funções utilitárias
 - **Testes:** [`tests.md`](./tests.md) — framework, abordagem, hierarquia de queries e exemplos por cenário
-
----
-
-## Acessibilidade [PADRÃO]
-
-- Navegação por teclado funcional em todos os fluxos principais
-- Imagens têm `alt` descritivo — `alt=""` apenas para imagens decorativas
-
----
-
-## Performance [PADRÃO]
-
-- Proibido importar bibliotecas inteiras quando só parte é usada (`import { X } from 'lib'`)
-- Lazy loading para rotas e componentes pesados
-- Imagens com dimensões explícitas para evitar layout shift

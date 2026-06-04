@@ -7,10 +7,10 @@
 
 ## Regras Gerais [PADRÃO]
 
-- Utils são sempre arrow functions — `export const formatDate = () => {}`
-- Funções puras — sem side effects, sem dependência de estado externo
-- Nomenclatura em `camelCase` descritivo (`formatDate`, `parseQueryString`, `calculateDiscount`)
-- Utils globais vivem em `src/utils/` — utils específicas de um módulo vivem na pasta do módulo
+- **Declaração:** arrow functions — `export const formatDate = () => {}`
+- **Pureza:** sem side effects, sem dependência de estado externo
+- **Nomenclatura:** `camelCase` descritivo (`formatDate`, `parseQueryString`, `calculateDiscount`)
+- **Localização:** utils globais em `src/utils/` — utils específicas na pasta do módulo
 
 > Para a regra de arquivo único vs pasta, veja "Estrutura de Módulos Internos" no [`spec.md`](./spec.md).
 

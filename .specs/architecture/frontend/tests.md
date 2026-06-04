@@ -1,7 +1,7 @@
 # Testes — Frontend
 
 > Guia de boas práticas para testes em projetos React.
-> Complementa o `spec.md` deste mesmo diretório.
+> Complementa o [`spec.md`](./spec.md) deste mesmo diretório.
 
 ---
 
@@ -19,12 +19,12 @@
 
 ## Hierarquia de Queries (prioridade)
 
-1. `getByRole` — acessível, semântico, preferido
-2. `getByLabelText` — formulários
-3. `getByPlaceholderText` — inputs sem label visível
-4. `getByText` — conteúdo visível
-5. `getByDisplayValue` — valor atual de inputs
-6. `getByTestId` — último recurso, apenas quando nenhuma outra opção funciona
+1. **`getByRole`** — acessível, semântico, preferido
+2. **`getByLabelText`** — formulários
+3. **`getByPlaceholderText`** — inputs sem label visível
+4. **`getByText`** — conteúdo visível
+5. **`getByDisplayValue`** — valor atual de inputs
+6. **`getByTestId`** — último recurso, apenas quando nenhuma outra opção funciona
 
 ---
 

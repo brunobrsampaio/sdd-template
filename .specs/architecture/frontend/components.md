@@ -1,18 +1,18 @@
 # Componentes — Frontend
 
 > Guia de boas práticas para criação de componentes React.
-> Complementa o `spec.md` deste mesmo diretório.
+> Complementa o [`spec.md`](./spec.md) deste mesmo diretório.
 
 ---
 
 ## Regras Gerais [PADRÃO]
 
-- Props sempre tipadas com interface explícita
-- Proibido prop drilling além de 2 níveis — use contexto ou estado global
-- Componentes são arrow functions — proibido class components e function declarations
-- Efeitos colaterais ficam em hooks, não diretamente nos componentes
-- Um componente por arquivo — o `index.tsx` é o ponto de entrada único
-- Proibido lógica de negócio dentro do JSX — extraia para variáveis ou hooks
+- **Props:** sempre tipadas com interface explícita
+- **Prop drilling:** proibido além de 2 níveis — use contexto ou estado global
+- **Declaração:** arrow functions — proibido class components e function declarations
+- **Side effects:** ficam em hooks, não diretamente nos componentes
+- **Arquivo:** um componente por arquivo — o `index.tsx` é o ponto de entrada único
+- **JSX:** proibido lógica de negócio dentro do JSX — extraia para variáveis ou hooks
 
 ---
 
