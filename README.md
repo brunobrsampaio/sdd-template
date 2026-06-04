@@ -10,12 +10,16 @@ Os arquivos para definição de arquitetura como frontend, backend, database e d
 sdd-templates/
   CLAUDE.md                              ← princípios não-negociáveis + orientação de sessão
   README.md                              ← este arquivo
-  specs/
+  .specs/
     architecture/
-      frontend.md                        ← stack, componentes, testes de UI, acessibilidade
-      backend.md                         ← API, autenticação, segurança, testes de serviço
-      database.md                        ← modelagem, migrations, acesso a dados, performance
-      devops.md                          ← CI/CD, ambientes, Docker, branching, secrets
+      frontend/
+        spec.md                          ← stack, componentes, testes de UI, acessibilidade
+      backend/
+        spec.md                          ← API, autenticação, segurança, testes de serviço
+      database/
+        spec.md                          ← modelagem, migrations, acesso a dados, performance
+      devops/
+        spec.md                          ← CI/CD, ambientes, Docker, branching, secrets
 ```
 
 ## Marcadores
@@ -41,8 +45,8 @@ cp -r specs /seu-projeto/
 
 No `CLAUDE.md`, marque com `[x]` apenas os guias do projeto:
 ```markdown
-- [x] `specs/architecture/frontend.md`
-- [ ] `specs/architecture/backend.md`   ← desative o que não usar
+- [x] `.specs/architecture/frontend/spec.md`
+- [ ] `.specs/architecture/backend/spec.md`   ← desative o que não usar
 ```
 
 **4. Preencha os `[PROJETO]` em cada guia de arquitetura ativo:**

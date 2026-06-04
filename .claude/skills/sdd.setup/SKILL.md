@@ -1,5 +1,5 @@
 ---
-description: Configura um novo projeto preenchendo todos os blocos [PROJETO] no CLAUDE.md e nos guias de arquitetura em specs/architecture
+description: Configura um novo projeto preenchendo todos os blocos [PROJETO] no CLAUDE.md e nos guias de arquitetura em .specs/architecture
 ---
 
 ## O que esse skill faz
@@ -8,7 +8,7 @@ Coleta as informações específicas do projeto através de um questionário gui
 blocos `[PROJETO]` nos arquivos de template:
 
 - `CLAUDE.md`
-- `specs/architecture/*.md` (apenas os guias marcados como ativos)
+- `.specs/architecture/*/spec.md` (apenas os guias marcados como ativos)
 
 Antes de começar, leia os arquivos listados acima para identificar quais blocos `[PROJETO]` ainda
 não foram preenchidos. Se o projeto já estiver parcialmente configurado, pule as fases já concluídas.
@@ -654,6 +654,9 @@ comentários indicando a camada. Omita completamente as ações que não se apli
 | Verificar tipos | TypeScript → `npm run typecheck` · PHP → `./vendor/bin/phpstan analyse` |
 | Build de produção | Node.js → `npm run build` · PHP sem assets → _(omita)_ |
 
+> **Nota (modo Integrado):** Se o backend PHP usa frontend JS/TS (Inertia + React, Livewire com Alpine, etc.),
+> adicione também os comandos de teste e lint do Frontend: `npm test` e `npm run lint`.
+
 ---
 
 ### DevOps / Docker (apenas se containerização ativa)
@@ -809,12 +812,19 @@ Após coletar todas as respostas, edite os arquivos um de cada vez:
    - `Descrição curta` → resposta da Fase 1
    - `Stack principal` → resumo derivado das respostas da Fase 3 (ex: "React 18 + TypeScript + Tailwind + Node.js + PostgreSQL"). Se a Fase 3 não foi executada, pergunte ao usuário.
 3. Na seção `Guias de Arquitetura Ativos`, marque `[x]` nos guias selecionados e deixe `[ ]` nos demais.
-4. Na seção `Definition of Done [PROJETO]`, renomeie o título para `## Definition of Done` (remova o `[PROJETO]`) e substitua os exemplos `[PROJETO - ex: ...]` nos checkboxes pelos comandos reais da Fase 4.
-5. Na seção `Convenções de Código`, remova a linha instrucional `> Ajuste conforme o projeto...` se ainda estiver presente.
-6. Na seção `Comandos do Projeto`, substitua os exemplos pelos comandos reais da Fase 4. Mantenha apenas os comandos que se aplicam ao projeto.
-7. Na seção `Referências Rápidas`, adicione os links da Fase 5 e remova o placeholder `[PROJETO - adicione links relevantes...]`. Se não houver links, remova apenas o placeholder.
+4. Na seção `Comandos do Projeto`, substitua a linha placeholder da tabela pelos comandos reais derivados na Fase 4. Use o formato:
+   ```
+   | Ação | Comando | Camada |
+   |------|---------|--------|
+   | Instalar dependências | `composer install` | backend |
+   | Instalar dependências | `npm install` | frontend |
+   | Servidor de dev | `php artisan serve` | backend |
+   | ...etc |
+   ```
+   Cada comando em sua própria linha. A coluna "Camada" identifica a qual camada o comando pertence (frontend, backend, devops, etc.). Omita ações que não se aplicam.
+5. Na seção `Referências Rápidas`, adicione os links da Fase 5. Se não houver links, remova apenas o placeholder.
 
-### Guias ativos (specs/architecture/*.md)
+### Guias ativos (.specs/architecture/*/spec.md)
 
 Para cada guia marcado como ativo na Fase 2:
 
