@@ -1,5 +1,9 @@
 ---
-description: Configura um novo projeto preenchendo todos os blocos [PROJETO] no CLAUDE.md e nos guias de arquitetura em .specs/architecture
+name: sdd.setup
+description: Configura um novo projeto preenchendo todos os blocos [PROJETO] no CLAUDE.md e nos guias de arquitetura em .specs/architecture. Use quando o usuário iniciar um novo projeto, copiar os templates ou pedir setup do SDD.
+disable-model-invocation: true
+model: opus
+effort: high
 ---
 
 ## O que esse skill faz
