@@ -10,7 +10,7 @@
 
 ## Stack [PROJETO]
 
-- **CI/CD:** [ex: GitHub Actions]
+- **CI/CD:** [ex: GitHub Actions | GitLab CI | Bitbucket Pipelines]
 - **Containerização:** [ex: Docker + Docker Compose para desenvolvimento local]
 - **Hospedagem:** [ex: Railway para API, Vercel para frontend]
 - **Monitoramento:** [ex: Sentry para erros, Grafana para métricas]
@@ -100,7 +100,18 @@ chore/<nome>  ← tarefas de manutenção (deps, config, etc.)
 
 ## Secrets e Segurança [PADRÃO]
 
-- Secrets do CI armazenados no cofre da plataforma (GitHub Secrets, etc.) — nunca em código
+- Secrets do CI armazenados no cofre da plataforma (GitHub Secrets, GitLab CI Variables, Bitbucket Repository Variables) — nunca em código
 - Proibido logar variáveis de ambiente em pipelines de CI
 - Dependências auditadas em cada PR (`npm audit` ou equivalente)
 - Imagens Docker escaneadas por vulnerabilidades antes do deploy em produção
+
+---
+
+## Guias Complementares
+
+Para detalhes, exemplos e anti-patterns de cada tema, consulte os arquivos dedicados nesta mesma pasta:
+
+- **CI/CD:** [`ci.md`](./ci.md) — pipelines, stages, caching, deploy e workflows reutilizáveis
+- **Containers:** [`containers.md`](./containers.md) — Dockerfiles, Compose, multi-stage e segurança de imagem
+- **Ambientes:** [`environments.md`](./environments.md) — variáveis, secrets, .env patterns e feature flags
+- **Monitoramento:** [`monitoring.md`](./monitoring.md) — logging, métricas, health checks e alerting

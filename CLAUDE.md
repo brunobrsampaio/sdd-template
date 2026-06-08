@@ -77,6 +77,10 @@ CLAUDE.md                  ← Princípios não-negociáveis + orientação de s
       spec.md              ← orientações para modelagem, acesso e performance do banco de dados (migrations, queries, convenções)
     devops/
       spec.md              ← orientações para processos de DevOps (CI/CD, ambientes, automação, secrets, build/deploy)
+      ci.md
+      containers.md
+      environments.md
+      monitoring.md
 ```
 
 > Esta estrutura é a **referência canônica** do projeto para qualquer framework ou toolkit de SDD

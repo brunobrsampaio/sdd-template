@@ -35,8 +35,4 @@ Registre aqui mudanças **significativas** — não commits rotineiros de códig
 
 | Data | Escopo | Mudança | Motivo |
 |------|--------|---------|--------|
-| 2026-06-08 | Geral — `CLAUDE.md` | Texto duplicado "specs Specs" corrigido; árvore de artefatos expandida com guias complementares | Inconsistência editorial; árvore incompleta omitia guias já existentes |
-| 2026-06-08 | Frontend — `components.md` | `key={i}` → `key={String(row[rowKey])}` com prop `rowKey`; import de `User` adicionado no `AuthProvider` | Chave por índice causa bugs de reconciliação; import ausente tornava o exemplo inválido |
-| 2026-06-08 | Geral — `README.md` | Reescrito: paths corrigidos, tabela alinhada à estrutura real, `sdd.setup` como único fluxo de setup | README desatualizado com paths errados e nomes incorretos |
-| 2026-06-08 | Geral — `.gitignore` | Criado com `.DS_Store` | Arquivo de sistema macOS estava sendo rastreado pelo git |
-| 2026-06-08 | Geral — `sdd.setup/SKILL.md` | Frontmatter: `model: opus`, `effort: high`, `disable-model-invocation: true` | Setup é operação única e crítica; Opus oferece melhor raciocínio para fluxo longo com lógica condicional |
+| [data] | [ex: Princípios — Artigo 1] | [ex: unificação da constitution no CLAUDE.md] | [ex: template agnóstico de ferramenta SDD] |
