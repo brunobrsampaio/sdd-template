@@ -64,8 +64,15 @@ CLAUDE.md                  ← Princípios não-negociáveis + orientação de s
   architecture/
     frontend/
       spec.md              ← orientações para arquitetura da camada de frontend (UI, componentes, testes de interface, acessibilidade)
+      components.md
+      hooks.md
+      utils.md
+      tests.md
     backend/
       spec.md              ← orientações para arquitetura do backend (APIs, autenticação, segurança, testes de serviço)
+      api.md
+      services.md
+      tests.md
     database/
       spec.md              ← orientações para modelagem, acesso e performance do banco de dados (migrations, queries, convenções)
     devops/
@@ -73,8 +80,8 @@ CLAUDE.md                  ← Princípios não-negociáveis + orientação de s
 ```
 
 > Esta estrutura é a **referência canônica** do projeto para qualquer framework ou toolkit de SDD
-> (OpenSpec, Spec Kit, Superpowers, SpecStory, etc.). Independente da ferramenta utilizada, as specs
-> Specs podem ser escritas manualmente ou geradas por qualquer ferramenta — o formato é o mesmo.
+> (OpenSpec, Spec Kit, Superpowers, SpecStory, etc.). Independente da ferramenta utilizada,
+> as specs podem ser escritas manualmente ou geradas por qualquer ferramenta — o formato é o mesmo.
 
 ### Guias de Arquitetura Ativos [PROJETO]
 

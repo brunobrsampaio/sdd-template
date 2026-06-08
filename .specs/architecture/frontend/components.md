@@ -97,6 +97,7 @@ export interface Column<T> {
 export interface DataTableProps<T> {
   columns: Column<T>[];
   data: T[];
+  rowKey: keyof T;
   loading?: boolean;
   onRowClick?: (row: T) => void;
   emptyMessage?: string;
@@ -114,7 +115,7 @@ export interface SortState<T> {
 import { useState, useMemo } from 'react';
 import type { DataTableProps, SortState } from './types';
 
-export const DataTable = <T,>({ columns, data, loading, onRowClick, emptyMessage = 'Nenhum dado encontrado' }: DataTableProps<T>) => {
+export const DataTable = <T,>({ columns, data, rowKey, loading, onRowClick, emptyMessage = 'Nenhum dado encontrado' }: DataTableProps<T>) => {
   const [sort, setSort] = useState<SortState<T>>({ column: null, direction: 'asc' });
 
   const sortedData = useMemo(() => {
@@ -146,8 +147,8 @@ export const DataTable = <T,>({ columns, data, loading, onRowClick, emptyMessage
         </tr>
       </thead>
       <tbody>
-        {sortedData.map((row, i) => (
-          <tr key={i} onClick={() => onRowClick?.(row)}>
+        {sortedData.map((row) => (
+          <tr key={String(row[rowKey])} onClick={() => onRowClick?.(row)}>
             {columns.map((col) => (
               <td key={String(col.key)}>
                 {col.render ? col.render(row[col.key], row) : String(row[col.key])}
@@ -172,7 +173,7 @@ O Provider é um componente. O hook de consumo (`useAuth`) vive em `src/hooks/` 
 
 import { createContext, useState, useCallback } from 'react';
 import type { ReactNode } from 'react';
-import type { AuthContextValue, Credentials } from '@/hooks/useAuth/types';
+import type { AuthContextValue, Credentials, User } from '@/hooks/useAuth/types';
 import { authService } from '@/services/auth';
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
