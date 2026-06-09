@@ -8,7 +8,7 @@
 ## Regras Gerais [PADRÃO]
 
 - **Timestamps:** toda tabela tem `created_at` e `updated_at` — preenchidos automaticamente
-- **Chave primária:** sempre `id` do tipo UUID — proibido IDs sequenciais em tabelas expostas via API
+- **Chave primária:** sempre `id` do tipo UUID — proibido IDs sequenciais em qualquer tabela
 - **Soft delete:** preferir `deleted_at` sobre exclusão física — avaliar caso a caso
 - **Constraints:** toda regra de integridade expressável no banco deve ser constraint — não confiar apenas na aplicação
 - **Nullable:** colunas são `NOT NULL` por padrão — `NULL` apenas quando a ausência de valor tem significado de negócio
@@ -27,7 +27,7 @@ CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name VARCHAR(100) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
-  password_hash VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
   role VARCHAR(20) NOT NULL DEFAULT 'user',
   deleted_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -51,7 +51,7 @@ export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
   name: varchar('name', { length: 100 }).notNull(),
   email: varchar('email', { length: 255 }).notNull().unique(),
-  passwordHash: varchar('password_hash', { length: 255 }).notNull(),
+  password: varchar('password', { length: 255 }).notNull(),
   role: varchar('role', { length: 20 }).notNull().default('user'),
   deletedAt: timestamp('deleted_at', { withTimezone: true }),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
@@ -85,7 +85,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name', 100);
             $table->string('email', 255)->unique();
-            $table->string('password_hash', 255);
+            $table->string('password', 255);
             $table->string('role', 20)->default('user');
             $table->softDeletes();
             $table->timestamps();
@@ -117,12 +117,12 @@ class User extends Model
     protected $fillable = [
         'name',
         'email',
-        'password_hash',
+        'password',
         'role',
     ];
 
     protected $hidden = [
-        'password_hash',
+        'password',
     ];
 }
 ```

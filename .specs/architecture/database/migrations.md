@@ -7,11 +7,8 @@
 
 ## Regras Gerais [PADRÃO]
 
-- **Obrigatoriedade:** toda alteração de schema passa por migration — proibido alterar banco diretamente
-- **Irreversibilidade:** migrations são irreversíveis por padrão — `down()` opcional e documentado
-- **Nomenclatura:** nome descreve a mudança (`add_deleted_at_to_orders`, `create_user_roles_table`)
-- **Conteúdo:** migrations contêm apenas DDL e DML simples — proibido lógica de negócio
-- **Teste:** toda migration testada em desenvolvimento antes de staging
+As regras fundamentais de migrations (obrigatoriedade via migration, irreversibilidade com `down()` opcional, nome descritivo, conteúdo apenas DDL/DML e teste em desenvolvimento antes de staging) estão em "Migrations" no [`spec.md`](./spec.md). Este guia adiciona:
+
 - **Idempotência:** data migrations são idempotentes — rodar duas vezes produz o mesmo resultado
 - **Separação:** alterações de schema e data migrations são commits separados
 
@@ -29,7 +26,7 @@ CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name VARCHAR(100) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
-  password_hash VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
   role VARCHAR(20) NOT NULL DEFAULT 'user',
   deleted_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -60,7 +57,7 @@ CREATE TABLE "users" (
   "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   "name" varchar(100) NOT NULL,
   "email" varchar(255) NOT NULL,
-  "password_hash" varchar(255) NOT NULL,
+  "password" varchar(255) NOT NULL,
   "role" varchar(20) DEFAULT 'user' NOT NULL,
   "deleted_at" timestamp with time zone,
   "created_at" timestamp with time zone DEFAULT now() NOT NULL,
@@ -96,7 +93,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name', 100);
             $table->string('email', 255)->unique();
-            $table->string('password_hash', 255);
+            $table->string('password', 255);
             $table->string('role', 20)->default('user');
             $table->softDeletes();
             $table->timestamps();
@@ -203,7 +200,7 @@ Seeds populam o banco com dados consistentes para desenvolvimento e testes.
 ```sql
 -- seeds/001_users.sql
 
-INSERT INTO users (id, name, email, password_hash, role) VALUES
+INSERT INTO users (id, name, email, password, role) VALUES
   ('550e8400-e29b-41d4-a716-446655440001', 'Admin User', 'admin@dev.local', '$2b$10$hash1', 'admin'),
   ('550e8400-e29b-41d4-a716-446655440002', 'Test User', 'user@dev.local', '$2b$10$hash2', 'user')
 ON CONFLICT (email) DO NOTHING;
@@ -217,8 +214,8 @@ import { users } from '@/db/schema';
 
 export const seedUsers = async () => {
   await db.insert(users).values([
-    { name: 'Admin User', email: 'admin@dev.local', passwordHash: '$2b$10$hash1', role: 'admin' },
-    { name: 'Test User', email: 'user@dev.local', passwordHash: '$2b$10$hash2', role: 'user' },
+    { name: 'Admin User', email: 'admin@dev.local', password: '$2b$10$hash1', role: 'admin' },
+    { name: 'Test User', email: 'user@dev.local', password: '$2b$10$hash2', role: 'user' },
   ]).onConflictDoNothing({ target: users.email });
 };
 ```
@@ -273,7 +270,7 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'password_hash' => Hash::make('password'),
+            'password' => Hash::make('password'),
             'role' => 'user',
         ];
     }

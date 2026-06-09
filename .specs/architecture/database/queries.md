@@ -7,13 +7,9 @@
 
 ## Regras Gerais [PADRÃO]
 
-- **Repositório:** único ponto de acesso ao banco — proibido query direta em services ou controllers
-- **SELECT:** proibido `SELECT *` — sempre listar colunas explicitamente
-- **Transações:** obrigatórias quando múltiplas operações precisam ser atômicas
-- **Paginação:** obrigatória em queries que podem retornar conjuntos grandes
-- **N+1:** proibido — usar eager loading ou JOINs
-- **Queries em loop:** proibido — usar batch ou `IN`
-- **Comentários:** queries com JOIN complexo ou subquery são documentadas com comentário explicativo
+As regras de acesso a dados (repositório como único ponto de acesso, proibição de `SELECT *`, transações para operações atômicas, paginação obrigatória, proibição de query em loop e documentação de JOINs complexos) estão em "Acesso a Dados" e "Performance" no [`spec.md`](./spec.md). Este guia adiciona:
+
+- **N+1:** proibido — usar eager loading ou JOINs em vez de query por iteração
 
 > Para regras de índices e análise de performance, veja "Performance" no [`spec.md`](./spec.md).
 > Para design de schema e relacionamentos, veja [`modeling.md`](./modeling.md).
@@ -32,7 +28,7 @@ import { users } from '@/db/schema';
 interface CreateUserData {
   name: string;
   email: string;
-  passwordHash: string;
+  password: string;
   role?: string;
 }
 
@@ -42,8 +38,8 @@ interface UpdateUserData {
   role?: string;
 }
 
-export const userRepository = {
-  async findById(id: string) {
+export class UserRepository {
+  findById = async (id: string) => {
     const [user] = await db
       .select({
         id: users.id,
@@ -57,15 +53,15 @@ export const userRepository = {
       .limit(1);
 
     return user ?? null;
-  },
+  };
 
-  async findByEmail(email: string) {
+  findByEmail = async (email: string) => {
     const [user] = await db
       .select({
         id: users.id,
         name: users.name,
         email: users.email,
-        passwordHash: users.passwordHash,
+        password: users.password,
         role: users.role,
       })
       .from(users)
@@ -73,9 +69,9 @@ export const userRepository = {
       .limit(1);
 
     return user ?? null;
-  },
+  };
 
-  async create(data: CreateUserData) {
+  create = async (data: CreateUserData) => {
     const [user] = await db
       .insert(users)
       .values(data)
@@ -88,9 +84,9 @@ export const userRepository = {
       });
 
     return user;
-  },
+  };
 
-  async update(id: string, data: UpdateUserData) {
+  update = async (id: string, data: UpdateUserData) => {
     const [user] = await db
       .update(users)
       .set({ ...data, updatedAt: new Date() })
@@ -104,15 +100,15 @@ export const userRepository = {
       });
 
     return user ?? null;
-  },
+  };
 
-  async softDelete(id: string) {
+  softDelete = async (id: string) => {
     await db
       .update(users)
       .set({ deletedAt: new Date() })
       .where(eq(users.id, id));
-  },
-};
+  };
+}
 ```
 
 ---
@@ -141,7 +137,7 @@ class UserRepository
 
     public function findByEmail(string $email): ?User
     {
-        return User::select(['id', 'name', 'email', 'password_hash', 'role'])
+        return User::select(['id', 'name', 'email', 'password', 'role'])
             ->where('email', $email)
             ->first();
     }
@@ -460,7 +456,7 @@ export class UserService {
 
 // ✅ Service delega para repositório
 export class UserService {
-  constructor(private readonly userRepo: typeof userRepository) {}
+  constructor(private readonly userRepo: UserRepository) {}
 
   async getUser(id: string) {
     return this.userRepo.findById(id);

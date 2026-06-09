@@ -98,7 +98,7 @@ src/
 - **`components/`:** apenas componentes genéricos reutilizáveis (UI primitivos, layout). Específicos de feature vivem na pasta da feature/página.
 - **`hooks/`:** apenas hooks globais. Hooks específicos vivem na pasta do componente.
 - **`types/`:** apenas types/interfaces compartilhadas entre múltiplos módulos. Types locais ficam no componente.
-- **Barrel exports:** `index.ts` em cada módulo — proibido importar paths internos de outro módulo
+- **Barrel exports:** `index.ts` em cada módulo é o ponto de entrada (regra de imports internos detalhada em "Estrutura de Módulos Internos" acima)
 
 ### TypeScript
 
@@ -135,7 +135,7 @@ src/
 
 ## Performance [PADRÃO]
 
-- **Imports:** proibido importar bibliotecas inteiras quando só parte é usada (`import { X } from 'lib'`)
+- **Imports:** proibido importar bibliotecas inteiras quando só parte é usada (`import _ from 'lodash'` → prefira `import debounce from 'lodash/debounce'`)
 - **Lazy loading:** obrigatório para rotas e componentes pesados
 - **Imagens:** dimensões explícitas para evitar layout shift
 

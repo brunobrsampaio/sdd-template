@@ -94,8 +94,8 @@ src/ (ou app/)
 - **Sucesso:** `{ "data": {} }`
 - **Erro:** `{ "error": { "message": "...", "code": "..." } }`
 - **Stack traces:** proibido retornar em produção
-- **Status HTTP:** usados semanticamente (200, 201, 400, 401, 403, 404, 422, 500)
-- **Paginação:** estrutura padronizada (`page`, `per_page`, `total`, `data`)
+- **Status HTTP:** usados semanticamente (200, 201, 204, 400, 401, 403, 404, 409, 422, 500)
+- **Paginação:** estrutura padronizada com envelope `data` + `meta` — `{ "data": [...], "meta": { "page", "per_page", "total", "last_page" } }`
 - **Filtros/ordenação:** via query params (`?sort=name&order=asc&status=active`)
 
 ---
@@ -104,7 +104,7 @@ src/ (ou app/)
 
 - **Validação de entrada:** toda entrada validada antes da lógica de negócio
 - **Logs:** proibido logar dados sensíveis (senhas, tokens, CPF, cartão)
-- **IDs públicos:** proibido IDs sequenciais — use UUIDs
+- **IDs:** sempre UUID — proibido IDs sequenciais (inclusive em tabelas internas)
 - **Rate limiting:** em todas as rotas públicas e de autenticação
 - **Credenciais:** variáveis de ambiente — proibido hardcode
 - **CORS:** configurado explicitamente — proibido wildcard (`*`) em produção

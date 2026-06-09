@@ -7,10 +7,8 @@
 
 ## Regras Gerais [PADRÃO]
 
-- **Multi-stage build:** obrigatório — estágio de build separado do estágio de execução
-- **Usuário:** proibido rodar container como root em produção — use usuário não-privilegiado
-- **Base image:** proibido `latest` como tag — use versão fixa com `alpine` ou `slim`
-- **`.dockerignore`:** obrigatório — exclui `node_modules`, `.env`, testes, docs e artefatos de build local
+As regras de imagem (multi-stage build, usuário não-root em produção, base fixa `alpine`/`slim` sem `latest` e `.dockerignore` obrigatório) estão em "Docker" no [`spec.md`](./spec.md). Este guia adiciona:
+
 - **Camadas:** ordenadas por frequência de mudança — dependências antes de código-fonte
 - **Secrets:** proibido passar secrets via `ARG` ou `ENV` no build — use montagem de secrets ou variáveis de runtime
 - **Tamanho:** imagem final contém apenas o necessário para execução — sem ferramentas de build, devDependencies ou docs

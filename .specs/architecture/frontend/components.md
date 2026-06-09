@@ -9,10 +9,10 @@
 
 - **Props:** sempre tipadas com interface explícita
 - **Prop drilling:** proibido além de 2 níveis — use contexto ou estado global
-- **Declaração:** arrow functions — proibido class components e function declarations
 - **Side effects:** ficam em hooks, não diretamente nos componentes
 - **Arquivo:** um componente por arquivo — o `index.tsx` é o ponto de entrada único
-- **JSX:** proibido lógica de negócio dentro do JSX — extraia para variáveis ou hooks
+
+> Para declaração (arrow functions, sem class components) e a regra de não colocar lógica de negócio no JSX, veja "Boas Práticas React" no [`spec.md`](./spec.md).
 
 ---
 

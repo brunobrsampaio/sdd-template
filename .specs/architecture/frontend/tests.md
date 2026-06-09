@@ -10,7 +10,7 @@
 - **Framework:** Jest + React Testing Library (ou Vitest como alternativa)
 - **HTTP mocking:** MSW (Mock Service Worker) — proibido `jest.mock` de `fetch`
 - **Abordagem:** TDD — testes escritos antes ou junto com o código
-- **Cobertura mínima:** 80% de branches por feature
+- **Cobertura mínima:** 80% de branches na camada de lógica (componentes, hooks e utils)
 - **Queries:** sempre semânticas (`getByRole`, `getByLabelText`) — proibido `getByTestId` salvo último recurso
 - **O que testar:** comportamento observável pelo usuário, não detalhes de implementação
 - **O que não testar:** detalhes internos, estado interno de hooks em isolamento
@@ -292,10 +292,10 @@ describe('LoginForm', () => {
 ## Exemplo: Teste de hook customizado
 
 ```ts
-// hooks/useDebounce/index.test.ts
+// hooks/useDebounce.test.ts
 
 import { renderHook, act } from '@testing-library/react';
-import { useDebounce } from '.';
+import { useDebounce } from './useDebounce';
 
 describe('useDebounce', () => {
   beforeEach(() => jest.useFakeTimers());

@@ -8,7 +8,7 @@
 ## Regras Gerais [PADRÃO]
 
 - **Abordagem:** TDD — testes escritos antes ou junto com o código
-- **Cobertura mínima:** 80% de branches na camada de serviço
+- **Cobertura mínima:** 80% de branches na camada de lógica (serviços)
 - **Unitários:** isolam lógica de negócio de I/O (banco, HTTP, filesystem)
 - **Integração:** rodam contra banco real em container isolado
 - **Independência:** cada teste é independente — proibido depender de ordem de execução

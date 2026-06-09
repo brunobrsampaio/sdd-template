@@ -7,12 +7,10 @@
 
 ## Regras Gerais [PADRÃO]
 
-- **Isolamento:** cada ambiente (local, staging, production) tem suas próprias variáveis — proibido compartilhar valores entre eles
-- **Nomenclatura:** `SCREAMING_SNAKE_CASE`, prefixada pelo domínio (`DATABASE_URL`, `STRIPE_SECRET_KEY`)
-- **Documentação:** toda variável nova deve ser documentada no `.env.example` com comentário explicativo
-- **Validação:** aplicação deve validar variáveis obrigatórias no boot — falhar rápido se faltar alguma
-- **Commits:** proibido commitar `.env` com valores reais — apenas `.env.example` com chaves vazias
-- **Secrets:** armazenados no cofre da plataforma de CI/CD — nunca em código, docs ou mensagens
+As regras de variáveis e secrets (isolamento por ambiente, nomenclatura `SCREAMING_SNAKE_CASE` prefixada, `.env.example` documentado, proibição de commitar `.env` real e armazenamento de secrets no cofre da plataforma) estão em "Ambientes", "Variáveis de Ambiente" e "Secrets e Segurança" no [`spec.md`](./spec.md). Este guia adiciona:
+
+- **Nomenclatura de ambiente:** o ambiente `local` corresponde a `NODE_ENV=development` (Node) / `APP_ENV=local` (PHP) — `staging` e `production` mantêm o mesmo nome em ambos
+- **Validação:** a aplicação valida variáveis obrigatórias no boot — falha rápido se faltar alguma
 
 > Para regras de nomenclatura e formato do `.env.example`, veja "Variáveis de Ambiente" no [`spec.md`](./spec.md).
 > Para configuração de secrets no pipeline, veja [`ci.md`](./ci.md).
