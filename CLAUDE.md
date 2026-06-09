@@ -75,6 +75,9 @@ CLAUDE.md                  ← Princípios não-negociáveis + orientação de s
       tests.md
     database/
       spec.md              ← orientações para modelagem, acesso e performance do banco de dados (migrations, queries, convenções)
+      modeling.md
+      migrations.md
+      queries.md
     devops/
       spec.md              ← orientações para processos de DevOps (CI/CD, ambientes, automação, secrets, build/deploy)
       ci.md

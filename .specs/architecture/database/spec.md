@@ -11,8 +11,8 @@
 ## Stack [PROJETO]
 
 - **Banco principal:** [ex: PostgreSQL 16]
-- **ORM / Query builder:** [ex: Drizzle ORM]
-- **Migrations:** [ex: Drizzle Kit — proibido alterar schema sem migration]
+- **ORM / Query builder:** [ex: Drizzle ORM | Eloquent | Prisma | Doctrine]
+- **Migrations:** [ex: Drizzle Kit | Laravel Migrations | Prisma Migrate — proibido alterar schema sem migration]
 - **Banco de desenvolvimento:** [ex: Docker local com pg]
 - **Banco de teste:** [ex: instância isolada via Docker Compose]
 
@@ -73,3 +73,13 @@
 - Proibido concatenar strings para montar queries — use prepared statements / parâmetros
 - Credenciais do banco apenas via variável de ambiente — proibido hardcode
 - Usuário do banco em produção tem apenas as permissões necessárias — proibido usar superuser
+
+---
+
+## Guias Complementares
+
+Para detalhes, exemplos e anti-patterns de cada tema, consulte os arquivos dedicados nesta mesma pasta:
+
+- **Modelagem:** [`modeling.md`](./modeling.md) — schema design, tipos, relacionamentos, constraints e soft delete
+- **Migrations:** [`migrations.md`](./migrations.md) — criação, alterações seguras, data migrations, seeds e rollback
+- **Queries:** [`queries.md`](./queries.md) — repositórios, CRUD, paginação, transações, N+1 e performance
