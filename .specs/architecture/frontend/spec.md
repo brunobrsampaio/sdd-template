@@ -63,16 +63,18 @@ useAuth/
   types.ts           ← apenas se necessário
 ```
 
-**Hooks e Utils simples (arquivo único):**
+**Hooks e Utils simples (arquivo único — somente sem testes):**
 ```
 hooks/
-  useDebounce.ts     ← hook simples que não precisa de pasta própria
+  useDebounce.ts     ← hook simples sem testes, tipos ou arquivos auxiliares
 utils/
-  formatDate.ts      ← utilitário simples que não precisa de pasta própria
+  formatDate.ts      ← utilitário simples sem testes, tipos ou arquivos auxiliares
 ```
 
-> Use pasta quando o módulo tem testes, tipos separados, ou múltiplos arquivos auxiliares.
-> Use arquivo único quando a implementação é pequena e autocontida.
+> **Obrigatório:** use pasta quando o módulo tem testes, tipos separados, ou múltiplos arquivos auxiliares.
+> Arquivo único **só é permitido** quando a implementação é pequena, autocontida e **não possui testes**.
+> **Proibido** arquivo de teste com nome do módulo (ex: `useDebounce.test.ts`, `Button.test.tsx`) —
+> se existe teste, o módulo deve ser uma pasta e o arquivo de teste deve se chamar `index.test.ts(x)`.
 
 **Regras gerais:**
 - **Export público:** `index.tsx` / `index.ts` é o único ponto de entrada — importações externas usam o path da pasta (`import { Button } from '@/components/Button'`)

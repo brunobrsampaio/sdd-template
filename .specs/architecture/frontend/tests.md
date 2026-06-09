@@ -14,6 +14,7 @@
 - **Queries:** sempre semânticas (`getByRole`, `getByLabelText`) — proibido `getByTestId` salvo último recurso
 - **O que testar:** comportamento observável pelo usuário, não detalhes de implementação
 - **O que não testar:** detalhes internos, estado interno de hooks em isolamento
+- **Nome de arquivo de teste:** obrigatório `index.test.ts(x)` dentro da pasta do módulo — proibido `useDebounce.test.ts`, `Button.test.tsx` ou qualquer variação com nome do módulo no arquivo de teste. A razão é dupla: (1) todo módulo com teste deve ser uma pasta (ver "Estrutura de Módulos Internos" no [`spec.md`](./spec.md)), e (2) o ponto de entrada `index` é o contrato público — o teste valida esse contrato.
 
 ---
 
@@ -292,10 +293,10 @@ describe('LoginForm', () => {
 ## Exemplo: Teste de hook customizado
 
 ```ts
-// hooks/useDebounce.test.ts
+// hooks/useDebounce/index.test.ts
 
 import { renderHook, act } from '@testing-library/react';
-import { useDebounce } from './useDebounce';
+import { useDebounce } from '.';
 
 describe('useDebounce', () => {
   beforeEach(() => jest.useFakeTimers());
@@ -380,3 +381,25 @@ server.use(
   http.get('/api/data', () => HttpResponse.json({ items: [] }))
 );
 ```
+
+```ts
+// ❌ Arquivo de teste com nome do módulo — fora da pasta
+// hooks/useDebounce.test.ts
+import { useDebounce } from './useDebounce';
+
+// ❌ Mesmo erro em componentes
+// components/Button.test.tsx
+import { Button } from './Button';
+
+// ✅ Teste dentro da pasta do módulo, nome fixo index.test.ts
+// hooks/useDebounce/index.test.ts
+import { useDebounce } from '.';
+
+// ✅ Componente também segue o mesmo padrão
+// components/Button/index.test.tsx
+import { Button } from '.';
+```
+
+> **Regra:** se o módulo tem teste, ele **obrigatoriamente** é uma pasta com `index.ts(x)` + `index.test.ts(x)`.
+> Arquivo de teste com nome do módulo (`useDebounce.test.ts`, `Button.test.tsx`) é proibido — não existe
+> cenário em que um módulo testado justifique ser arquivo único fora de pasta.

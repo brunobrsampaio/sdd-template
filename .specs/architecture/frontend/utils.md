@@ -17,7 +17,10 @@
 
 ---
 
-## Exemplo: Util simples (arquivo único)
+## Exemplo: Util simples (arquivo único — somente sem testes)
+
+> Este padrão **só é permitido** quando o util não possui testes, tipos separados ou arquivos auxiliares.
+> Se o util tiver testes, veja o padrão de pasta em "Estrutura de Módulos Internos" no [`spec.md`](./spec.md).
 
 ```ts
 // utils/formatDate.ts

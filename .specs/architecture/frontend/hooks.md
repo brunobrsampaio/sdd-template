@@ -18,7 +18,10 @@
 
 ---
 
-## Exemplo: Hook simples (arquivo único)
+## Exemplo: Hook simples (arquivo único — somente sem testes)
+
+> Este padrão **só é permitido** quando o hook não possui testes, tipos separados ou arquivos auxiliares.
+> Se o hook tiver testes, veja o padrão de pasta em "Estrutura de Módulos Internos" no [`spec.md`](./spec.md).
 
 ```ts
 // hooks/useDebounce.ts
