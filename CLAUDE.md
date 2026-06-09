@@ -51,6 +51,14 @@ O fluxo de desenvolvimento segue a sequência definida na seção "Fluxo de Trab
 - Dependências de desenvolvimento não entram em produção
 - Versões são fixadas — proibido ranges abertos em produção (`^`, `~` com cautela)
 
+### Artigo 5 — Testes [PADRÃO]
+
+- Toda lógica de negócio nova entra com testes — proibido merge sem cobertura da feature
+- Testes são independentes — proibido depender de ordem de execução, banco compartilhado entre testes ou estado global persistido
+- Testes validam comportamento observável — proibido testar detalhes de implementação (estado interno, chamadas internas)
+- Cobertura mínima de 80% de branches na camada de lógica das camadas ativas (componentes/hooks/utils no frontend, services no backend)
+- Detalhes de framework, fixtures e mocking ficam nos guias `*/tests.md` da camada
+
 ---
 
 ## Estrutura de Artefatos SDD

@@ -116,7 +116,7 @@ class AppServiceProvider extends ServiceProvider
 
         $missing = array_filter(
             $required,
-            fn (string $key): bool => empty(config("app.env_vars.{$key}", env($key)))
+            fn (string $key): bool => empty(env($key))
         );
 
         if (!empty($missing)) {
@@ -127,6 +127,8 @@ class AppServiceProvider extends ServiceProvider
     }
 }
 ```
+
+> Em produção, `env()` deve ser chamado apenas durante o boot. Para leitura em runtime, espelhe os valores em `config/*.php` e use `config('chave')` — assim `php artisan config:cache` continua funcionando (o cache de configuração derruba a leitura direta de `env()` em runtime).
 
 ---
 

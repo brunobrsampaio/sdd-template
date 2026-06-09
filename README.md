@@ -26,8 +26,15 @@ sdd-templates/
         tests.md                         ← guia de testes backend (unitários e integração)
       database/
         spec.md                          ← modelagem, migrations, acesso a dados, performance
+        modeling.md                      ← schema design, tipos, relacionamentos, soft delete
+        migrations.md                    ← criação, alterações seguras, data migrations, seeds, rollback
+        queries.md                       ← repositórios, CRUD, paginação, transações, N+1, performance
       devops/
         spec.md                          ← CI/CD, ambientes, Docker, branching, secrets
+        ci.md                            ← pipelines, stages, caching, deploy, workflows reutilizáveis
+        containers.md                    ← Dockerfiles, Compose, multi-stage, segurança de imagem
+        environments.md                  ← variáveis, secrets, .env patterns, feature flags
+        monitoring.md                    ← logging, métricas, health checks, alerting
   .claude/
     skills/
       sdd.setup/

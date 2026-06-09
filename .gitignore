@@ -1,1 +1,15 @@
+# macOS
 .DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Editores
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Logs locais
+*.log
