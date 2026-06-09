@@ -29,7 +29,7 @@ O fluxo de desenvolvimento segue a sequência definida na seção "Fluxo de Trab
 - Specs escritas manualmente seguem a mesma estrutura que as geradas por ferramentas de SDD
 - O plano de implementação deve justificar decisões não-óbvias com raciocínio explícito
 - Mudanças de requisito durante a implementação atualizam a spec — nunca o contrário
-- O contexto de sessão é atualizado ao final de cada sessão com o que foi decidido e por quê
+- Decisões que alteram princípios, guias ou convenções são registradas no [`.specs/changelog.md`](.specs/changelog.md) com data, escopo e motivo
 
 ### Artigo 2 — Qualidade de Código [PADRÃO]
 
@@ -42,6 +42,7 @@ O fluxo de desenvolvimento segue a sequência definida na seção "Fluxo de Trab
 
 - Todo erro é tratado — proibido `try/catch` vazio
 - Erros são logados com contexto suficiente para reprodução (o quê falhou, onde, com quais dados)
+- Proibido logar dados sensíveis (senhas, tokens, CPF, cartões, dados pessoais identificáveis)
 - Proibido expor mensagens de erro técnicas diretamente ao usuário final
 - Estados de falha são tão planejados quanto os estados de sucesso
 
@@ -58,6 +59,23 @@ O fluxo de desenvolvimento segue a sequência definida na seção "Fluxo de Trab
 - Testes validam comportamento observável — proibido testar detalhes de implementação (estado interno, chamadas internas)
 - Cobertura mínima de 80% de branches na camada de lógica das camadas ativas (componentes/hooks/utils no frontend, services no backend)
 - Detalhes de framework, fixtures e mocking ficam nos guias `*/tests.md` da camada
+
+---
+
+## Convenção de Severidade
+
+As regras deste projeto seguem uma hierarquia inspirada na RFC 2119:
+
+| Termo | Significado |
+|-------|-------------|
+| **Proibido** | Violação é erro — não passa em review |
+| **Obrigatório** | Deve estar presente — ausência é erro |
+| **Sempre** | Regra sem exceção — salvo documentado e aprovado |
+| **Prefira / Evite** | Recomendação forte — exceções justificadas no PR |
+| **Considere / Pode** | Sugestão — use seu julgamento |
+
+> Regras marcadas com `[PADRÃO]` podem ser alteradas se o projeto tiver razão específica.
+> A alteração deve ser registrada no [`.specs/changelog.md`](.specs/changelog.md) com o motivo.
 
 ---
 

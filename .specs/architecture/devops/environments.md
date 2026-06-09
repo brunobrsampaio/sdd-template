@@ -24,7 +24,7 @@ As regras de variáveis e secrets (isolamento por ambiente, nomenclatura `SCREAM
 # Copie para .env e preencha os valores
 
 # ── Aplicação ──────────────────────────────────────────
-NODE_ENV=development             # development | staging | production
+NODE_ENV=local                   # local | staging | production
 APP_PORT=3000                    # Porta da aplicação
 APP_URL=http://localhost:3000    # URL base da aplicação
 
@@ -60,7 +60,7 @@ LOG_LEVEL=debug                  # debug | info | warn | error
 import { z } from 'zod';
 
 const envSchema = z.object({
-  NODE_ENV: z.enum(['development', 'staging', 'production']),
+  NODE_ENV: z.enum(['local', 'staging', 'production']),
   APP_PORT: z.coerce.number().default(3000),
   APP_URL: z.string().url(),
 

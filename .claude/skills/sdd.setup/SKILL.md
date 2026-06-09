@@ -212,6 +212,34 @@ questions: [
 ]
 ```
 
+**Passo 4 — UI Library** (chamada separada, 1 campo)
+
+Pergunte apenas se o framework for React 18 + TypeScript ou Next.js 14, e se a
+estilização for Tailwind CSS.
+
+```
+questions: [
+  {
+    question: "Qual biblioteca de componentes UI?",
+    header: "UI Library",
+    options: [
+      { label: "shadcn/ui",
+        description: "Componentes copy-paste sobre Radix UI + Tailwind — mais popular atualmente" },
+      { label: "Headless UI",
+        description: "Primitivos acessíveis sem estilização, pela equipe do Tailwind" },
+      { label: "DaisyUI",
+        description: "Componentes prontos como classes Tailwind — sem JavaScript adicional" },
+      { label: "Nenhuma",
+        description: "Componentes 100% customizados — sem biblioteca de UI" }
+    ]
+  }
+]
+```
+
+Se o usuário escolher "Outra", aceitar texto livre (ex: NextUI, Mantine, Chakra UI).
+
+> Esta pergunta é opcional — se a estilização não for Tailwind CSS, pule.
+
 ### Frontend Integrado
 
 > Esta seção se aplica apenas ao modo **Integrado** (Fase 2.5), quando Frontend e Backend foram selecionados.
@@ -755,6 +783,7 @@ Use o formato abaixo — omita seções que não foram preenchidas (guias inativ
 - Estado de servidor: <valor>
 - Formulários: <valor>
 - Roteamento: <valor>
+- UI Library: <valor>
 
 ### Backend
 - Linguagem: <valor>
@@ -814,7 +843,7 @@ Após coletar todas as respostas, edite os arquivos um de cada vez:
 2. Preencha `Identidade do Projeto`:
    - `Nome` → slug confirmado na Fase 1
    - `Descrição curta` → resposta da Fase 1
-   - `Stack principal` → resumo derivado das respostas da Fase 3 (ex: "React 18 + TypeScript + Tailwind + Node.js + PostgreSQL"). Se a Fase 3 não foi executada, pergunte ao usuário.
+   - `Stack principal` → resumo derivado das respostas da Fase 3 (ex: "React 18 + TypeScript + Tailwind + shadcn/ui + Node.js + PostgreSQL"). Se a Fase 3 não foi executada, pergunte ao usuário.
 3. Na seção `Guias de Arquitetura Ativos`, marque `[x]` nos guias selecionados e deixe `[ ]` nos demais.
 4. Na seção `Comandos do Projeto`, substitua a linha placeholder da tabela pelos comandos reais derivados na Fase 4. Use o formato:
    ```

@@ -30,6 +30,13 @@ production  ← real, monitorado, acesso restrito
 - Staging deve refletir produção em configuração — não em dados
 - Variáveis de ambiente são gerenciadas por ambiente — nunca compartilhadas entre eles
 
+> **Equivalência entre stacks:**
+> | Conceito | Node.js (`NODE_ENV`) | PHP (`APP_ENV`) |
+> |----------|---------------------|------------------|
+> | local | `local` | `local` |
+> | staging | `staging` | `staging` |
+> | production | `production` | `production` |
+
 ---
 
 ## Variáveis de Ambiente [PADRÃO]
@@ -70,6 +77,8 @@ lint → typecheck → test → build → deploy (apenas na branch principal)
 - Multi-stage build: estágio de build separado do estágio de execução
 - Proibido rodar container como root em produção — use usuário não-privilegiado
 - `.dockerignore` configurado para excluir `node_modules`, `.env`, arquivos de teste e docs
+
+> Para implementação dos endpoints de health check, veja [`monitoring.md`](./monitoring.md).
 
 ```dockerfile
 # Estrutura padrão multi-stage

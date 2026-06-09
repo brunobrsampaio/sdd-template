@@ -6,6 +6,14 @@
 
 ---
 
+> **Importante:** Este changelog registra decisões de design e arquitetura tomadas
+> durante o desenvolvimento de features usando SDD. Ele **não** registra alterações
+> nos arquivos de template (CLAUDE.md, guias de arquitetura, skills) — essas mudanças
+> são versionadas normalmente via git. Use este arquivo quando uma decisão de projeto
+> mudar princípios, stack, convenções ou direção técnica de forma deliberada.
+
+---
+
 ## Como usar
 
 Registre aqui mudanças **significativas** — não commits rotineiros de código. Use quando:

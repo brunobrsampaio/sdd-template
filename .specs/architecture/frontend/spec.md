@@ -16,6 +16,7 @@
 - **Estado de servidor:** [ex: TanStack Query — proibido fetch manual em useEffect para dados remotos]
 - **Formulários:** [ex: React Hook Form — proibido Formik]
 - **Roteamento:** [ex: React Router v6]
+- **UI Library:** [ex: shadcn/ui — proibido usar componentes não acessíveis]
 
 ---
 

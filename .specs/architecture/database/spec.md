@@ -57,6 +57,8 @@
 - Queries com `JOIN` complexo ou subquery são documentadas com comentário explicativo
 - Transações usadas sempre que múltiplas operações precisam ser atômicas
 
+> Para exemplos de repositórios, veja [`services.md`](../backend/services.md) no guia de backend.
+
 ---
 
 ## Performance [PADRÃO]

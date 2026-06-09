@@ -13,7 +13,10 @@
 - **Granularidade:** um service por domínio/entidade (`UserService`, `OrderService`)
 - **Tipagem:** retorno explícito — nunca `any` ou `mixed`
 
-> Para regras de tratamento de erros e tipagem, veja "Tratamento de Erros" no [`spec.md`](./spec.md).
+> Para regras de tratamento de erros (erros tipados por domínio, handler global),
+> veja "Tratamento de Erros" no [`spec.md`](./spec.md).
+> Para regras de tipagem (strict mode, proibição de `any`/`mixed`), veja
+> "Qualidade e Padronização de Código" no [`spec.md`](./spec.md).
 
 ---
 

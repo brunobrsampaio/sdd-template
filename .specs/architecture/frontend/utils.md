@@ -12,7 +12,8 @@
 - **Nomenclatura:** `camelCase` descritivo (`formatDate`, `parseQueryString`, `calculateDiscount`)
 - **Localização:** utils globais em `src/utils/` — utils específicas na pasta do módulo
 
-> Para a regra de arquivo único vs pasta, veja "Estrutura de Módulos Internos" no [`spec.md`](./spec.md).
+> Para a regra de arquivo único vs pasta e a estrutura de módulos internos, veja
+> "Estrutura de Módulos Internos" no [`spec.md`](./spec.md).
 
 ---
 

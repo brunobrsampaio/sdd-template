@@ -67,8 +67,8 @@ src/ (ou app/)
 > Nomes entre parênteses são alternativas comuns por ecossistema. Use a convenção do framework escolhido.
 
 **Regras de dependência entre camadas:**
-- **Controllers → Services:** nunca acessam Repositories diretamente
-- **Services → Repositories:** nunca importam objetos HTTP (Request/Response)
+- **Controllers:** nunca acessam Repositories diretamente — sempre passam pelos Services
+- **Services:** nunca importam objetos HTTP (Request/Response)
 - **Repositories:** única camada que conhece o ORM/banco
 - **Utils:** não dependem de nenhuma outra camada
 
@@ -104,11 +104,13 @@ src/ (ou app/)
 
 - **Validação de entrada:** toda entrada validada antes da lógica de negócio
 - **Logs:** proibido logar dados sensíveis (senhas, tokens, CPF, cartão)
-- **IDs:** sempre UUID — proibido IDs sequenciais (inclusive em tabelas internas)
+- **IDs:** sempre UUID — veja [`database/spec.md`](../database/spec.md)
 - **Rate limiting:** em todas as rotas públicas e de autenticação
 - **Credenciais:** variáveis de ambiente — proibido hardcode
 - **CORS:** configurado explicitamente — proibido wildcard (`*`) em produção
 - **Headers:** obrigatórios (X-Content-Type-Options, X-Frame-Options, etc.)
+
+> Para regras de segurança em containers, CI e ambientes, veja [`devops/spec.md`](../devops/spec.md).
 
 ---
 

@@ -12,7 +12,10 @@
 - **Side effects:** ficam em hooks, não diretamente nos componentes
 - **Arquivo:** um componente por arquivo — o `index.tsx` é o ponto de entrada único
 
-> Para declaração (arrow functions, sem class components) e a regra de não colocar lógica de negócio no JSX, veja "Boas Práticas React" no [`spec.md`](./spec.md).
+> Para regras de declaração de componentes (arrow functions, sem class components),
+> proibição de lógica de negócio no JSX, e estrutura de módulos internos
+> (pasta vs arquivo único, `index.tsx` como ponto de entrada), veja
+> "Boas Práticas React" e "Estrutura de Módulos Internos" no [`spec.md`](./spec.md).
 
 ---
 

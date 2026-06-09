@@ -11,7 +11,11 @@
 - **Validação:** acontece antes da lógica de negócio — nunca dentro do service
 - **Rotas:** uma rota por ação — proibido endpoints genéricos que fazem coisas diferentes por query param
 
-> Para regras de estrutura de resposta, status HTTP e paginação, veja "API Design" no [`spec.md`](./spec.md).
+> Para regras de estrutura de resposta (envelope `data` e `error`), status HTTP,
+> versionamento de API e paginação, veja "API Design" no [`spec.md`](./spec.md).
+> Para regras de segurança (CORS, headers, rate limiting), veja "Segurança"
+> no [`spec.md`](./spec.md).
+> Para tratamento de erros, veja "Tratamento de Erros" no [`spec.md`](./spec.md).
 
 ---
 

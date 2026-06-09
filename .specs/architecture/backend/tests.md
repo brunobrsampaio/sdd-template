@@ -7,7 +7,7 @@
 
 ## Regras Gerais [PADRÃO]
 
-- **Abordagem:** TDD — testes escritos antes ou junto com o código
+- **Abordagem:** TDD — testes escritos antes do código de produção. Quando inviável, o teste entra no mesmo commit que a implementação — nunca em PR separado.
 - **Cobertura mínima:** 80% de branches na camada de lógica (serviços)
 - **Unitários:** isolam lógica de negócio de I/O (banco, HTTP, filesystem)
 - **Integração:** rodam contra banco real em container isolado

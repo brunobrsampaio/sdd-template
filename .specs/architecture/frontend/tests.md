@@ -9,7 +9,7 @@
 
 - **Framework:** Jest + React Testing Library (ou Vitest como alternativa)
 - **HTTP mocking:** MSW (Mock Service Worker) — proibido `jest.mock` de `fetch`
-- **Abordagem:** TDD — testes escritos antes ou junto com o código
+- **Abordagem:** TDD — testes escritos antes do código de produção. Quando inviável, o teste entra no mesmo commit que a implementação — nunca em PR separado.
 - **Cobertura mínima:** 80% de branches na camada de lógica (componentes, hooks e utils)
 - **Queries:** sempre semânticas (`getByRole`, `getByLabelText`) — proibido `getByTestId` salvo último recurso
 - **O que testar:** comportamento observável pelo usuário, não detalhes de implementação

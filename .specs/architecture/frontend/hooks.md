@@ -12,7 +12,9 @@
 - **JSX:** hooks não devem conter JSX — se renderiza algo, é um componente
 - **Localização:** hooks globais em `src/hooks/` — hooks locais na pasta do componente
 
-> Para a regra de arquivo único vs pasta, veja "Estrutura de Módulos Internos" no [`spec.md`](./spec.md).
+> Para a regra de arquivo único vs pasta (`index.ts` como ponto de entrada,
+> `types.ts` apenas quando necessário), veja "Estrutura de Módulos Internos"
+> no [`spec.md`](./spec.md).
 
 ---
 

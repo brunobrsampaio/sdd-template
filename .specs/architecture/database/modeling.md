@@ -8,7 +8,7 @@
 ## Regras Gerais [PADRÃO]
 
 - **Timestamps:** toda tabela tem `created_at` e `updated_at` — preenchidos automaticamente
-- **Chave primária:** sempre `id` do tipo UUID — proibido IDs sequenciais em qualquer tabela
+- **Chave primária:** sempre `id` do tipo UUID — veja "Nomenclatura" no [`spec.md`](./spec.md)
 - **Soft delete:** preferir `deleted_at` sobre exclusão física — avaliar caso a caso
 - **Constraints:** toda regra de integridade expressável no banco deve ser constraint — não confiar apenas na aplicação
 - **Nullable:** colunas são `NOT NULL` por padrão — `NULL` apenas quando a ausência de valor tem significado de negócio
