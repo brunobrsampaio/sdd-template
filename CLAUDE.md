@@ -7,36 +7,37 @@
 
 ---
 
-## Identidade do Projeto
+## Identidade do Projeto [PROJETO]
 
-- **Nome:** [PROJETO - ex: strava-dashboard]
-- **Descrição curta:** [PROJETO - ex: Dashboard web para visualização de atividades do Strava]
-- **Stack principal:** [PROJETO - ex: React 18 + TypeScript + Tailwind]
+- **Nome:** [ex: strava-dashboard]
+- **Descrição curta:** [ex: Dashboard web para visualização de atividades do Strava]
+- **Stack principal:** [ex: React 18 + TypeScript + Tailwind]
 
 ---
 
-## Princípios Não-Negociáveis
+## Princípios do Projeto
 
-> Princípios universais não-negociáveis. Valem para qualquer domínio, linguagem ou stack.
+> Princípios que regem o desenvolvimento. Valem para qualquer domínio, linguagem ou stack.
 > Regras específicas de domínio ficam nos guias de arquitetura.
-> Seções marcadas com [PADRÃO] são boas práticas gerais — mantenha salvo razão específica.
+> Itens marcados com `[PADRÃO]` são boas práticas gerais — mantenha salvo razão específica. Itens sem a marca são absolutos.
 
 ### Artigo 1 — Processo SDD [PADRÃO]
 
 O fluxo de desenvolvimento segue a sequência definida na seção "Fluxo de Trabalho Obrigatório" abaixo.
 
-- Nenhuma implementação começa sem `spec.md` ou arquivo `*.md`, derivada de frameworks e/ou toolkits (`OpenSpec`, `Spec Kit`, `Superpowers`, `SpecStory`, etc.)
+- Nenhuma implementação começa sem uma spec aprovada — `spec.md` ou outro `*.md` que siga a "Estrutura de Artefatos SDD" —, derivada de frameworks e/ou toolkits (`OpenSpec`, `Spec Kit`, `Superpowers`, `SpecStory`, etc.) ou escrita manualmente
+  - Uma spec está aprovada quando o responsável pelo projeto confirma explicitamente que ela representa o escopo desejado — seja por mensagem no chat, aprovação de PR ou checklist preenchido
 - Specs escritas manualmente seguem a mesma estrutura que as geradas por ferramentas de SDD
 - O plano de implementação deve justificar decisões não-óbvias com raciocínio explícito
 - Mudanças de requisito durante a implementação atualizam a spec — nunca o contrário
-- Decisões que alteram princípios, guias ou convenções são registradas no [`.specs/changelog.md`](.specs/changelog.md) com data, escopo e motivo
+- Uma spec cobre uma feature completa do ponto de vista do usuário — algo que pode ser implementado, testado e entregue em um PR ou sequência curta de PRs. Features independentes têm specs independentes; variações de uma mesma feature pertencem à mesma spec
 
 ### Artigo 2 — Qualidade de Código [PADRÃO]
 
 - Proibido deixar código morto (funções, variáveis, imports não utilizados)
 - Proibido comentários do tipo `// TODO` sem issue associada
 - Nomes de variáveis e funções devem revelar intenção — sem abreviações obscuras
-- A qualidade de código deve seguir as recomendações específicas de cada arquitetura (frontend, backend, devops e database) descritas nos respectivos blocos de `Qualidade de Código` dos `Guias de Arquitetura ativos` — essas recomendações estão baseadas nos arquivos em `.specs/architecture/` deste projeto.
+- Siga também as recomendações de `Qualidade de Código` dos guias de arquitetura ativos em `.specs/architecture/` (frontend, backend, database, devops)
 
 ### Artigo 3 — Tratamento de Erros [PADRÃO]
 
@@ -50,14 +51,14 @@ O fluxo de desenvolvimento segue a sequência definida na seção "Fluxo de Trab
 
 - Nenhuma dependência nova entra sem avaliação de: manutenção ativa, tamanho, alternativa nativa
 - Dependências de desenvolvimento não entram em produção
-- Versões são fixadas — proibido ranges abertos em produção (`^`, `~` com cautela)
+- Prefira versões fixadas em produção; ranges abertos (`^`, `~`) são aceitáveis desde que com lockfile commitado
 
 ### Artigo 5 — Testes [PADRÃO]
 
 - Toda lógica de negócio nova entra com testes — proibido merge sem cobertura da feature
 - Testes são independentes — proibido depender de ordem de execução, banco compartilhado entre testes ou estado global persistido
 - Testes validam comportamento observável — proibido testar detalhes de implementação (estado interno, chamadas internas)
-- Cobertura mínima de 80% de branches na camada de lógica das camadas ativas (componentes/hooks/utils no frontend, services no backend)
+- Obrigatório: cobertura mínima de 80% de branches nas camadas de lógica — componentes, hooks e utils no frontend; services no backend
 - Detalhes de framework, fixtures e mocking ficam nos guias `*/tests.md` da camada
 
 ---
@@ -75,7 +76,6 @@ As regras deste projeto seguem uma hierarquia inspirada na RFC 2119:
 | **Considere / Pode** | Sugestão — use seu julgamento |
 
 > Regras marcadas com `[PADRÃO]` podem ser alteradas se o projeto tiver razão específica.
-> A alteração deve ser registrada no [`.specs/changelog.md`](.specs/changelog.md) com o motivo.
 
 ---
 
@@ -84,9 +84,8 @@ As regras deste projeto seguem uma hierarquia inspirada na RFC 2119:
 Os artefatos do projeto seguem esta hierarquia. Leia-os nesta ordem antes de qualquer implementação:
 
 ```
-CLAUDE.md                  ← Princípios não-negociáveis + orientação de sessão (este arquivo)
+CLAUDE.md                  ← Princípios do projeto + orientação de sessão (este arquivo)
 .specs/
-  changelog.md             ← histórico de decisões que mudam princípios ou guias
   architecture/
     frontend/
       spec.md              ← orientações para arquitetura da camada de frontend (UI, componentes, testes de interface, acessibilidade)
@@ -129,12 +128,29 @@ Marque com `[x]` apenas os guias que se aplicam a este projeto:
 
 ---
 
+## Delegação a Agentes Especializados
+
+Cada camada ativa tem um subagente dedicado em `.claude/agents/`, que segue à risca o `AGENTS.md` da sua pasta em `.specs/architecture/`.
+
+> **Sempre** que uma tarefa envolver uma camada ativa (frontend, backend, database ou devops), é **obrigatório** delegá-la ao agente correspondente. Não implemente código de camada direto no contexto principal — invoque o especialista.
+
+| Camada | Agente | Definição que ele segue |
+|--------|--------|-------------------------|
+| Frontend | `frontend` | [`.specs/architecture/frontend/AGENTS.md`](.specs/architecture/frontend/AGENTS.md) |
+| Backend | `backend` | [`.specs/architecture/backend/AGENTS.md`](.specs/architecture/backend/AGENTS.md) |
+| Database | `database` | [`.specs/architecture/database/AGENTS.md`](.specs/architecture/database/AGENTS.md) |
+| DevOps | `devops` | [`.specs/architecture/devops/AGENTS.md`](.specs/architecture/devops/AGENTS.md) |
+
+Tarefas que **cruzam camadas** (ex: backend + frontend) são coordenadas pelo agente principal: os subagentes não se comunicam entre si. O principal divide o trabalho, passa o contrato (API, tipos, schema) de um agente para o outro e integra os resultados.
+
+---
+
 ## Fluxo de Trabalho Obrigatório
 
 Siga esta sequência. Nunca pule etapas.
 
 ```
-1. Ler os Princípios Não-Negociáveis (acima)
+1. Ler os Princípios do Projeto (acima)
 2. Criar ou receber uma spec aprovada
 3. Elaborar o plano de implementação baseado na spec
 4. Quebrar o plano em tarefas atômicas e ordenadas
@@ -142,7 +158,10 @@ Siga esta sequência. Nunca pule etapas.
 6. Validar contra a spec antes de fechar
 ```
 
-Esclareça os requisitos antes de avançar para o próximo passo quando:
+### Quando parar e esclarecer (antes do passo 3)
+
+Esclareça os requisitos antes de elaborar o plano quando:
+
 - O pedido do usuário está vago ou pode ser interpretado de mais de uma forma
 - A spec levanta perguntas que bloqueiam decisões de arquitetura
 - Há dependências externas (integrações, regras de negócio, restrições) que não foram mencionadas
@@ -150,7 +169,6 @@ Esclareça os requisitos antes de avançar para o próximo passo quando:
 
 > Não avance para o plano com ambiguidades que vão forçar suposições. Esclareça primeiro.
 
-**Nunca implemente sem spec aprovada.**
 **Nunca abra PR sem todos os critérios de done satisfeitos.**
 
 ---
@@ -163,7 +181,7 @@ Uma tarefa está concluída quando:
 - Testes escritos e passando
 - Sem erros de lint ou de tipagem
 - Princípios de qualidade de código respeitados (Artigo 2)
-- Contexto de sessão atualizado com decisões tomadas
+- Spec atualizada com as decisões tomadas durante a implementação
 
 Uma feature está concluída quando:
 
@@ -171,19 +189,21 @@ Uma feature está concluída quando:
 - Comportamento validado contra a spec
 - Sem regressões nas features anteriores
 
+> Os itens de lint, tipagem e testes só são verificáveis após preencher a tabela "Comandos do Projeto" (ou rodar a skill `sdd.setup` em projeto novo, ou `sdd.adopt` em projeto já existente).
+
 ---
 
 ## Comandos do Projeto [PROJETO]
 
 | Ação | Comando | Camada |
 |------|---------|--------|
-| [PROJETO - preencha com os comandos reais ou use a skill `sdd.setup`] | | |
+| [ex: preencha com os comandos reais; ou use `sdd.setup` (projeto novo) / `sdd.adopt` (projeto já existente)] | | |
 
 ---
 
 ## Referências Rápidas
 
-- **Princípios não-negociáveis:** seção "Princípios Não-Negociáveis" (acima)
+- **Princípios do projeto:** seção "Princípios do Projeto" (acima)
 - **Specs ativas:** `.specs/`
 - **Guias de arquitetura:** `.specs/architecture/`
-- **Registro de alterações:** [`.specs/changelog.md`](.specs/changelog.md)
+- **Agentes especializados:** `.claude/agents/` — um por camada ativa, seguindo o `AGENTS.md` da pasta (ver "Delegação a Agentes Especializados")
