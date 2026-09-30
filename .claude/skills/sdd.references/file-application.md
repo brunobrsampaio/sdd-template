@@ -139,6 +139,9 @@ Para cada guia ativo:
 > **No `sdd.adopt`:** mesmo procedimento, com os valores vindos da **detecção** (`stack-detection.md`).
 > A seção `## Stack [PROJETO]` aceita **valores livres** — preencha com o nome real da tecnologia
 > mesmo quando ela não existe no catálogo do `question-flows.md` (ex: `Vue 3`, `Django 5`, `GORM`).
+> **Importante:** o passo 3 é **diferente** no `sdd.adopt` — campos **não detectados** não são
+> removidos; permanecem com o valor `A definir` como placeholder para documentação futura.
+> Nenhum campo da seção Stack é removido, independente de ter sido detectado ou não.
 
 ### Procedimento para o `sdd.evolve` (modificação)
 
@@ -264,7 +267,8 @@ middleware/auth, service, erros tipados, repository, testes):
    - `[evolve]` Em camadas **modificadas**, apenas campos alterados foram atualizados;
      campos mantidos ("Manter: ...") permanecem com os valores originais.
    - `[adopt]` Os valores refletem a **detecção** (incluindo valores livres fora do catálogo);
-     campos de baixa confiança/não detectados foram confirmados com o usuário.
+     campos de baixa confiança/não detectados foram confirmados com o usuário; campos não
+     detectados permanecem como `A definir` (placeholder para documentação futura).
 
 3. **Limpeza de linguagem (Backend):** Os arquivos `api.md`, `services.md`, `tests.md` e
    `spec.md` do Backend não devem conter exemplos da linguagem não selecionada.

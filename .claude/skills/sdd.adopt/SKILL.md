@@ -108,8 +108,13 @@ da seção "Formato de Resumo (Confirmação)" de `.claude/skills/sdd.references
 (com confiança + evidência por campo). Liste também os comandos detectados e os exemplos do Backend
 que serão substituídos (com a origem).
 
-Peça ao usuário **confirmar ou corrigir** em texto livre. Valores de confiança **alta** podem ser
+Ao final da apresentação, **use obrigatoriamente `AskUserQuestion`** com o bloco
+**"Pergunta de confirmação (os três skills)"** de `file-application.md` para que o
+usuário confirme a detecção com opções clicáveis. Valores de confiança **alta** podem ser
 aceitos como estão; **média/baixa** devem ser destacados para revisão.
+
+- Se **Confirmar e aplicar**: prossiga para a Fase 5 (preenchimento de lacunas).
+- Se **Reiniciar**: volte à Fase 1 (a detecção é refeita do zero).
 
 ### Modo de arquitetura (quando Frontend e Backend coexistem)
 
@@ -166,7 +171,10 @@ Aplique a seção "CLAUDE.md" do arquivo de referência (notas **No `sdd.adopt`*
 Aplique a seção "Specs de Arquitetura — spec.md" (procedimento padrão + nota **No `sdd.adopt`**):
 1. Remover o bloco de instruções do topo
 2. Preencher `## Stack [PROJETO]` com os valores detectados (valores livres quando fora do catálogo)
-3. Remover linhas de campos "Não se aplica"
+3. Campos **não detectados** permanecem com o valor `A definir` — **nunca remova** um campo da
+   seção Stack. Todos os campos listados no template são placeholders essenciais para documentação
+   futura: mesmo que o projeto não use a tecnologia hoje, o campo fica como lembrete do que pode
+   ser configurado.
 
 ### 7.3 — Backend: exemplos a partir do código real
 
