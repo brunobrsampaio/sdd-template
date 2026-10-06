@@ -10,9 +10,9 @@
 
 ## Stack [PROJETO]
 
+- **Linguagem:** [ex: TypeScript strict | PHP 8.3]
 - **Runtime:** [ex: Node.js 20 | PHP 8.3]
 - **Framework:** [ex: Fastify | Laravel | NestJS | Symfony]
-- **Linguagem:** [ex: TypeScript strict | PHP 8.3]
 - **ORM / Query builder:** [ex: Drizzle ORM | Eloquent | Prisma | Doctrine]
 - **Autenticação:** [ex: JWT com refresh token | Laravel Sanctum]
 - **Validação:** [ex: Zod | Laravel Validator | class-validator]

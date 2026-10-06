@@ -83,7 +83,7 @@ utils/
 
 ### Arquitetura de Pastas
 
-A estrutura base segue o padrão abaixo. Pode variar conforme a stack (Next.js usa `app/` em vez de `pages/`, por exemplo), mas a separação de responsabilidades é a mesma:
+A estrutura base segue o padrão abaixo. Pode variar conforme a stack (Next.js usa `app/` em vez de `routes/`, por exemplo), mas a separação de responsabilidades é a mesma:
 
 ```
 src/
@@ -91,8 +91,7 @@ src/
 │   ├── Button/
 │   ├── Modal/
 │   └── Input/
-├── pages/          # Páginas da aplicação
-├── routes/         # Rotas da aplicação
+├── routes/         # Rotas e páginas da aplicação (React Router; Next.js usa app/)
 ├── hooks/          # Hooks verdadeiramente globais
 ├── utils/          # Funções utilitárias puras
 └── types/          # Types/interfaces globais e compartilhadas

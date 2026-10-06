@@ -21,7 +21,8 @@ Backend → Database → Frontend → DevOps
 ```
 
 > No modo **Integrado** (Frontend + Backend no mesmo repositório), o Frontend é configurado
-> pela seção **Frontend Integrado** logo após o Backend — nunca pela seção Frontend padrão.
+> pela seção **Frontend Integrado** em vez da seção Frontend padrão — mantendo a ordem
+> `Backend → Database → Frontend Integrado → DevOps` (o Database continua entre Backend e Frontend).
 
 ---
 
@@ -51,8 +52,9 @@ campo estão na tabela "Mapeamento Rápido" de `question-flows.md`.
 
 ## Frontend Integrado (modo Integrado)
 
-Execute **após** o Backend. Com base no framework Backend, apresente as abordagens compatíveis
-(chamada condicional):
+Execute **após** o Backend e o Database (quando ambos ativos), mantendo a ordem
+`Backend → Database → Frontend Integrado → DevOps`. Com base no framework Backend, apresente as
+abordagens compatíveis (chamada condicional):
 
 - Laravel → `question-flows.md` > Frontend Integrado > `### Laravel`
 - Symfony → `question-flows.md` > Frontend Integrado > `### Symfony`

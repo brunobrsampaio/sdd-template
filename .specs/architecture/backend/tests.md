@@ -7,6 +7,7 @@
 
 ## Regras Gerais [PADRÃO]
 
+- **Framework:** Vitest (Node.js/TypeScript) · PHPUnit (PHP/Laravel)
 - **Abordagem:** TDD — testes escritos antes do código de produção. Quando inviável, o teste entra no mesmo commit que a implementação — nunca em PR separado.
 - **Cobertura mínima:** 80% de branches na camada de lógica (serviços)
 - **Unitários:** isolam lógica de negócio de I/O (banco, HTTP, filesystem)
@@ -39,21 +40,22 @@ tests/ (ou __tests__/)
 ```ts
 // tests/unit/services/user.service.test.ts
 
+import { vi, type Mocked } from 'vitest';
 import { UserService } from '@/services/user.service';
 import type { UserRepository } from '@/repositories/user.repository';
 
-const mockRepository: jest.Mocked<UserRepository> = {
-  findById: jest.fn(),
-  findByEmail: jest.fn(),
-  create: jest.fn(),
-  update: jest.fn(),
-  delete: jest.fn(),
+const mockRepository: Mocked<UserRepository> = {
+  findById: vi.fn(),
+  findByEmail: vi.fn(),
+  create: vi.fn(),
+  update: vi.fn(),
+  delete: vi.fn(),
 };
 
 const userService = new UserService(mockRepository);
 
 describe('UserService', () => {
-  beforeEach(() => jest.clearAllMocks());
+  beforeEach(() => vi.clearAllMocks());
 
   describe('getById', () => {
     it('returns user when found', async () => {

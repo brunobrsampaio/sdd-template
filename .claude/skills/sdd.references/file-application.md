@@ -213,8 +213,6 @@ linguagem escolhida, **remover os exemplos e referências da linguagem não sele
 
 - Nos anti-patterns, manter apenas os exemplos na linguagem selecionada. Se um anti-pattern
   tem exemplos nas duas linguagens, remover o da linguagem não selecionada.
-- Atualizar as tabelas comparativas em `spec.md` (seção Testes) para manter apenas a linha
-  da linguagem selecionada.
 
 ### No `sdd.evolve`
 
